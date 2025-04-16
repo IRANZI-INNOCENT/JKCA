@@ -3,19 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IMARISHA Enterprise - Project Proposal</title>
+    <title>Jua Kali Connect Africa (JKCA) - Project Plan</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.1/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
     <style>
         :root {
-            --primary-color: #E94B3C;
-            --secondary-color: #F2B705;
-            --accent-color: #2D7D90;
-            --bg-light: #FFF8E8;
-            --text-dark: #3D2C29;
-            --text-light: #FFFFFF;
-            --border-color: #D9C5B4;
+            --primary: #e67e22;
+            --primary-dark: #d35400;
+            --secondary: #27ae60;
+            --secondary-dark: #219653;
+            --accent: #3498db;
+            --text-dark: #2d3748;
+            --text-light: #718096;
+            --bg-light: #f7fafc;
+            --bg-dark: #1a202c;
         }
         
         html {
@@ -25,1479 +28,1465 @@
         body {
             font-family: 'Ubuntu', sans-serif;
             color: var(--text-dark);
-            line-height: 1.6;
-            background-color: var(--bg-light);
         }
         
         h1, h2, h3, h4, h5, h6 {
             font-family: 'Montserrat', sans-serif;
-            color: var(--accent-color);
-            font-weight: 600;
-        }
-        
-        .primary-bg {
-            background-color: var(--primary-color);
-        }
-        
-        .secondary-bg {
-            background-color: var(--secondary-color);
-        }
-        
-        .accent-bg {
-            background-color: var(--accent-color);
-            color: var(--text-light);
-        }
-        
-        .light-bg {
-            background-color: var(--bg-light);
-        }
-        
-        .primary-text {
-            color: var(--primary-color);
-        }
-        
-        .secondary-text {
-            color: var(--secondary-color);
-        }
-        
-        .accent-text {
-            color: var(--accent-color);
-        }
-        
-        .border-primary {
-            border-color: var(--primary-color);
-        }
-        
-        .border-secondary {
-            border-color: var(--secondary-color);
-        }
-        
-        .border-accent {
-            border-color: var(--accent-color);
-        }
-        
-        .logo-text {
             font-weight: 700;
-            letter-spacing: 2px;
-            text-transform: uppercase;
         }
         
-        .nav-item {
-            position: relative;
+        .gradient-text {
+            background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, #f9a826, #e65c00);
+        }
+        
+        .card {
             transition: all 0.3s ease;
-            color: var(--accent-color);
-            font-weight: 500;
         }
         
-        .nav-item::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: 0;
-            left: 0;
-            background-color: var(--secondary-color);
-            transition: width 0.3s ease;
-        }
-        
-        .nav-item:hover::after {
-            width: 100%;
-        }
-        
-        .nav-item:hover {
-            color: var(--primary-color);
-        }
-        
-        .feature-card {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            background-color: #FFFFFF;
-            border-color: var(--border-color);
-        }
-        
-        .feature-card:hover {
+        .card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-            border-color: var(--secondary-color);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         }
         
         .timeline-container {
             position: relative;
         }
         
-        .timeline-container::before {
+        .timeline-container::after {
             content: '';
             position: absolute;
-            top: 0;
-            left: 50%;
             width: 4px;
-            height: 100%;
-            background: var(--accent-color);
-            transform: translateX(-50%);
+            background-color: var(--secondary);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -2px;
         }
         
         .timeline-item {
             position: relative;
-            margin-bottom: 2rem;
+            width: 50%;
+            padding: 10px 30px;
         }
         
-        .timeline-item::before {
+        .timeline-item::after {
             content: '';
             position: absolute;
-            top: 25px;
-            left: 50%;
             width: 20px;
             height: 20px;
-            background: var(--primary-color);
+            background-color: white;
+            border: 4px solid var(--secondary);
             border-radius: 50%;
-            transform: translateX(-50%);
+            top: 15px;
+            z-index: 1;
+        }
+        
+        .left {
+            left: 0;
+        }
+        
+        .right {
+            left: 50%;
+        }
+        
+        .left::after {
+            right: -10px;
+        }
+        
+        .right::after {
+            left: -10px;
+        }
+        
+        .accordion-header {
+            cursor: pointer;
+        }
+        
+        .accordion-icon {
+            transition: transform 0.3s ease;
+        }
+        
+        .rotate-icon {
+            transform: rotate(180deg);
+        }
+        
+        .fade-in {
+            animation: fadeIn 1s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
         @media (max-width: 768px) {
-            .timeline-container::before {
-                left: 32px;
+            .timeline-container::after {
+                left: 31px;
             }
             
-            .timeline-item::before {
-                left: 32px;
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            
+            .timeline-item::after {
+                left: 21px;
+            }
+            
+            .left::after, .right::after {
+                left: 21px;
+            }
+            
+            .right {
+                left: 0%;
             }
         }
         
-        .stat-card {
-            border-left: 4px solid var(--secondary-color);
+        .counter {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: bold;
+            font-size: 2.5rem;
+            color: var(--primary);
         }
         
+        .sticky-nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+        
+        .progress-container {
+            width: 100%;
+            height: 4px;
+            background: #f1f1f1;
+            position: fixed;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .progress-bar {
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            width: 0%;
+        }
+        
+        /* Add smooth transitions for accordions */
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.6s ease;
+        }
+        
+        .accordion-active {
+            max-height: 2000px; /* Large enough to fit content */
+        }
+        
+        /* Custom buttons */
         .btn-primary {
-            background-color: var(--primary-color);
-            color: var(--text-light);
+            background-color: var(--primary);
+            color: white;
             transition: all 0.3s ease;
         }
         
         .btn-primary:hover {
-            background-color: #c63c30;
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
         }
         
         .btn-secondary {
-            background-color: var(--secondary-color);
-            color: var(--text-dark);
+            background-color: var(--secondary);
+            color: white;
             transition: all 0.3s ease;
         }
         
         .btn-secondary:hover {
-            background-color: #d9a404;
+            background-color: var(--secondary-dark);
+            transform: translateY(-2px);
         }
         
-        .btn-accent {
-            background-color: var(--accent-color);
-            color: var(--text-light);
+        /* Feature cards */
+        .feature-card {
+            border-top: 5px solid var(--primary);
             transition: all 0.3s ease;
         }
         
-        .btn-accent:hover {
-            background-color: #246879;
+        .feature-card:hover {
+            border-top-color: var(--secondary);
         }
         
-        .table-row-striped:nth-child(even) {
-            background-color: var(--bg-light);
-        }
-        
-        .tag {
-            background-color: rgba(242, 183, 5, 0.2);
-            color: var(--accent-color);
-            font-size: 0.85rem;
-            padding: 0.25rem 0.75rem;
-            border-radius: 50px;
-            display: inline-block;
-            margin-right: 0.5rem;
+        /* Custom list styles */
+        .custom-list li {
+            position: relative;
+            padding-left: 1.5rem;
             margin-bottom: 0.5rem;
-            border: 1px solid var(--secondary-color);
         }
         
-        .progress-bar {
-            height: 0.75rem;
-            border-radius: 0.25rem;
-            background-color: #e9ecef;
-            overflow: hidden;
+        .custom-list li:before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--secondary);
+            font-weight: bold;
         }
         
-        .progress-bar-fill {
-            height: 100%;
-            background-color: var(--accent-color);
+        /* Testimonial styling */
+        .testimonial {
+            background-color: #fff;
+            border-radius: 0.5rem;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
         }
         
-        .pattern-bg {
-            background-color: var(--primary-color);
-            background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23f6aa98' fill-opacity='0.2' fill-rule='evenodd'%3E%3Cpath d='M0 40L40 0H20L0 20M40 40V20L20 40'/%3E%3C/g%3E%3C/svg%3E");
-        }
-        
-        .header-title {
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-        }
-        
-        .section-divider {
-            height: 4px;
-            width: 60px;
-            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
-            margin-right: 15px;
-            border-radius: 2px;
+        .testimonial:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
         }
     </style>
 </head>
-<body>
-    <!-- Header Section -->
-    <header class="pattern-bg text-white py-12">
+<body class="bg-gray-50">
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <!-- Sticky Navigation -->
+    <nav class="sticky-nav py-3 shadow-md">
         <div class="container mx-auto px-4">
-            <div class="flex flex-col items-center text-center mb-6">
-                <h1 class="text-4xl md:text-6xl logo-text header-title mb-4">IMARISHA ENTERPRISE</h1>
-                <div class="h-1 w-32 bg-secondary-color mb-4"></div>
-                <p class="text-xl md:text-2xl font-light">Empowering Refugee Artisans Through Fashion</p>
+            <div class="flex justify-between items-center">
+                <div class="flex items-center">
+                    <div class="text-2xl font-bold text-gray-800">
+                        <span class="text-orange-500">Jua Kali</span> <span class="text-green-500">Connect Africa</span>(JKCA)
+                    </div>
+                </div>
+                <div class="hidden md:flex space-x-6">
+                    <a href="#overview" class="text-gray-700 hover:text-orange-500 transition">Overview</a>
+                    <a href="#market" class="text-gray-700 hover:text-orange-500 transition">Market</a>
+                    <a href="#features" class="text-gray-700 hover:text-orange-500 transition">Features</a>
+                    <a href="#tech" class="text-gray-700 hover:text-orange-500 transition">Tech</a>
+                    <!-- <a href="#business" class="text-gray-700 hover:text-orange-500 transition">Business</a> -->
+                    <a href="#roadmap" class="text-gray-700 hover:text-orange-500 transition">Roadmap</a>
+                </div>
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="text-gray-700 hover:text-orange-500">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
             </div>
-            <div class="flex justify-center mt-6">
-                <div class="bg-white text-accent-color px-5 py-3 rounded-lg shadow-lg transform -translate-y-2 border-l-4 border-secondary-color">
-                    <i class="fas fa-file-alt mr-2"></i>
-                    <span class="font-bold" style="color: #29021e;">Project Proposal & Plan</span>
+            
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="hidden md:hidden mt-4 pb-4 border-t">
+                <div class="flex flex-col space-y-3 mt-3">
+                    <a href="#overview" class="text-gray-700 hover:text-orange-500 transition">Overview</a>
+                    <a href="#market" class="text-gray-700 hover:text-orange-500 transition">Market</a>
+                    <a href="#features" class="text-gray-700 hover:text-orange-500 transition">Features</a>
+                    <a href="#tech" class="text-gray-700 hover:text-orange-500 transition">Tech</a>
+                    <a href="#business" class="text-gray-700 hover:text-orange-500 transition">Business</a>
+                    <a href="#roadmap" class="text-gray-700 hover:text-orange-500 transition">Roadmap</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero-gradient text-white">
+        <div class="container mx-auto px-4 py-20 md:py-28">
+            <div class="md:w-4/5 mx-auto text-center fade-in">
+                <h1 class="text-4xl md:text-6xl font-bold mb-6">Jua Kali Connect Africa</h1>
+                <p class="text-xl md:text-2xl mb-8">Empowering Africa's 450+ Million Informal Workers</p>
+                <div class="flex flex-col md:flex-row justify-center gap-4">
+                    <a href="#overview" class="bg-blue-100 text-black font-semibold py-3 px-6 rounded-lg shadow-lg hover:bg-gray-100 transition transform hover:-translate-y-1">Explore the Vision</a>
+                    <a href="#contact" class="bg-green-600 text-white font-semibold py-3 px-6 rounded-lg shadow-lg hover:bg-green-700 transition transform hover:-translate-y-1">Support Me</a>
                 </div>
             </div>
         </div>
     </header>
 
-    <!-- Navigation -->
-    <nav class="sticky top-0 z-50 bg-white shadow-md py-3">
+    <!-- Key Metrics -->
+    <section class="py-12 bg-white">
         <div class="container mx-auto px-4">
-            <div class="flex flex-wrap justify-center md:justify-start items-center">
-                <a href="#overview" class="nav-item mx-3 my-1 py-1">Overview</a>
-                <a href="#market" class="nav-item mx-3 my-1 py-1">Market Context</a>
-                <a href="#features" class="nav-item mx-3 my-1 py-1">Core Features</a>
-                <a href="#business" class="nav-item mx-3 my-1 py-1">Business Model</a>
-                <a href="#marketing" class="nav-item mx-3 my-1 py-1">Marketing</a>
-                <a href="#sustainability" class="nav-item mx-3 my-1 py-1">Sustainability</a>
-                <a href="#timeline" class="nav-item mx-3 my-1 py-1">Timeline</a>
-                <a href="#impact" class="nav-item mx-3 my-1 py-1">Impact</a>
-                <a href="#challenges" class="nav-item mx-3 my-1 py-1">Challenges</a>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-center">
+                <div class="p-6 rounded-lg bg-green-50">
+                    <div class="counter" data-target="400">300</div>
+                    <p class="text-gray-600 font-semibold">+ Million Informal Workers</p>
+                </div>
+                <!-- <div class="p-6 rounded-lg bg-green-50">
+                    <div class="counter" data-target="52">0</div>
+                    <p class="text-gray-600 font-semibold">% Boost in Intra-African Trade</p>
+                </div> -->
+                <div class="p-6 rounded-lg bg-blue-50">
+                    <div class="counter" data-target="50">0</div>
+                    <p class="text-gray-600 font-semibold">+ Million MSMEs Across Africa</p>
+                </div>
+                <!-- <div class="p-6 rounded-lg bg-purple-50">
+                    <div class="counter" data-target="3">0</div>
+                    <p class="text-gray-600 font-semibold">Trillion USD AfCFTA Market</p>
+                </div> -->
             </div>
         </div>
-    </nav>
+    </section>
 
-    <!-- Main Content -->
-    <main class="container mx-auto px-4 py-8">
-        <!-- Executive Summary -->
-        <section class="mb-12 border-l-4 border-primary pl-6 py-2 bg-white rounded-r-lg shadow-sm">
-            <h2 class="text-2xl mb-4 primary-text">Executive Summary</h2>
-            <p class="mb-4">
-                IMARISHA Enterprise is a refugee-led social enterprise designed to transform the skills of artisans in Kakuma and Kalobeyei Refugee Camps into a sustainable source of income. By establishing a collaborative fashion hub, delivering targeted skill-building programs, and launching a hybrid sales ecosystem, we aim to empower 2,000 refugee artisans by 2030, with a special focus on teenage mothers.
-            </p>
-            <p>
-                Our vibrant shukas, modern dresses, bedsheets, sofa covers, and accessories connect refugee craftsmanship with markets in Kakuma, Nairobi, and beyond through our physical shop and SokoMoja e-commerce platform, fostering economic independence and community resilience.
-            </p>
-        </section>
-
-        <!-- Project Overview -->
-        <section id="overview" class="mb-16">
-            <div class="flex items-center mb-8">
-                <div class="section-divider"></div>
-                <h2 class="text-3xl">Project Overview</h2>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-                <div class="bg-white p-6 rounded-lg shadow-sm">
-                    <h3 class="text-xl mb-4 primary-text">Purpose</h3>
-                    <p class="mb-4">
-                        IMARISHA Enterprise tackles economic isolation, limited market access, and lack of production resources faced by refugee artisans. Through our integrated approach, we create pathways for artisans to transform their traditional skills into sustainable livelihoods.
-                    </p>
-                    <h3 class="text-xl mb-4 primary-text">Vision</h3>
-                    <p>
-                        By 2030, we aim to empower 2,000 refugee artisans to achieve financial independence, reduce reliance on humanitarian aid, and spark a wave of refugee-led fashion initiatives across Kenya, fostering community resilience and pride.
-                    </p>
-                </div>
-                <div class="bg-white p-6 rounded-lg shadow-sm">
-                    <h3 class="text-xl mb-4 primary-text">Target Audience</h3>
-                    <div class="mb-4">
-                        <h4 class="font-semibold accent-text">Primary:</h4>
-                        <p>Refugee artisans in Kakuma and Kalobeyei, particularly teenage mothers skilled in sewing, tailoring, weaving, and beadwork.</p>
-                    </div>
-                    <div>
-                        <h4 class="font-semibold accent-text">Secondary:</h4>
-                        <ul class="list-disc pl-5">
-                            <li>Kakuma Residents: Local camp dwellers and NGO workers</li>
-                            <li>Nairobi Consumers: Young professionals and boutique owners</li>
-                            <li>Online Shoppers: Domestic and global customers seeking artisan-crafted goods</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <div class="bg-accent-bg p-6 rounded-lg mb-8 shadow-sm">
-                <h3 class="text-xl mb-4 text-white" style="color: #c63c30;">Value Proposition</h3>
-                <p class="text-white"style="color: #c63c90;">
-                    IMARISHA delivers high-quality, story-driven fashion products made by refugee artisans, supported by a production hub with free tools and materials, affordable training to enhance skills, and a seamless sales platform that connects artisans to diverse markets, ensuring fair wages and customer satisfaction.
-                </p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-                <div class="feature-card p-5 border rounded-lg shadow-sm">
-                    <div class="flex items-center mb-3">
-                        <i class="fas fa-tshirt text-primary-color text-2xl mr-3"></i>
-                        <h4 class="font-semibold">Product Range</h4>
-                    </div>
-                    <p>Vibrant shukas, modern dresses, bedsheets, sofa covers, and accessories</p>
-                </div>
-                <div class="feature-card p-5 border rounded-lg shadow-sm">
-                    <div class="flex items-center mb-3">
-                        <i class="fas fa-users text-primary-color text-2xl mr-3"></i>
-                        <h4 class="font-semibold">Primary Beneficiaries</h4>
-                    </div>
-                    <p>2,000 refugee artisans with focus on teenage mothers</p>
-                </div>
-                <div class="feature-card p-5 border rounded-lg shadow-sm">
-                    <div class="flex items-center mb-3">
-                        <i class="fas fa-store text-primary-color text-2xl mr-3"></i>
-                        <h4 class="font-semibold">Sales Channels</h4>
-                    </div>
-                    <p>Physical shop in Kakuma and SokoMoja e-commerce platform</p>
-                </div>
-                <div class="feature-card p-5 border rounded-lg shadow-sm">
-                    <div class="flex items-center mb-3">
-                        <i class="fas fa-graduation-cap text-primary-color text-2xl mr-3"></i>
-                        <h4 class="font-semibold">Skill Development</h4>
-                    </div>
-                    <p>Training academy and peer mentorship for sustainable growth</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Market Context -->
-        <section id="market" class="mb-16">
-            <div class="flex items-center mb-8">
-                <div class="section-divider"></div>
-                <h2 class="text-3xl">Market Context</h2>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-                <div class="bg-white p-6 rounded-lg shadow-sm">
-                    <h3 class="text-xl mb-4 primary-text">Kakuma/Kalobeyei Context</h3>
-                    
-                    <div class="mb-4">
-                        <h4 class="font-semibold mb-2 accent-text">Demographics and Challenges</h4>
-                        <p class="mb-3">
-                            Kakuma and Kalobeyei Refugee Camps host over 280,000 refugees from South Sudan, Somalia, DR Congo, and beyond (UNHCR 2024), facing severe economic constraints:
+    <!-- Overview Section -->
+    <section id="overview" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="md:flex items-center">
+                <div class="md:w-1/2 mb-10 md:mb-0">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-6 gradient-text">Project Overview</h2>
+                    <div class="mb-8">
+                        <h3 class="text-xl font-semibold mb-3 text-gray-800">Purpose</h3>
+                        <p class="text-gray-600 leading-relaxed mb-4">
+                            Jua Kali Connect Africa (JKCA) is a Progressive Web App/Platform designed to empower Africa's 400+ million informal workers and 50+ million MSMEs by connecting them to local and cross-border opportunities for trade, professional services, and skill development.
                         </p>
-                        <ul class="list-disc pl-5 mb-3">
-                            <li>Youth (60% of population) and women face highest unemployment</li>
-                            <li>Restricted work permits limit economic opportunities</li>
-                            <li>30% cut in WFP food rations since 2023</li>
-                            <li>Artisans lack production tools and market access</li>
-                            <li>Kenya's 6.5% inflation (2025) erodes purchasing power</li>
-                        </ul>
                     </div>
-                    
+                    <div class="mb-8">
+                        <h3 class="text-xl font-semibold mb-3 text-gray-800">Vision</h3>
+                        <p class="text-gray-600 leading-relaxed mb-4">
+                            To build a thriving digital economy where Africa’s informal workers and MSMEs are empowered to trade, grow, and connect beyond borders
+                        </p>
+                    </div>
                     <div>
-                        <h4 class="font-semibold mb-2 accent-text">Opportunities</h4>
-                        <ul class="list-disc pl-5">
-                            <li>85% mobile phone penetration enables digital platforms</li>
-                            <li>Kenya's apparel market growing 10% annually (KSh 50B in 2025)</li>
-                            <li>Rich cultural traditions create unique product potential</li>
-                            <li>Growing demand for authenticity and ethical products</li>
+                        <h3 class="text-xl font-semibold mb-3 text-gray-800">Target Audience</h3>
+                        <p class="text-gray-600 leading-relaxed">
+                            Informal artisans (e.g., carpenters, tailors, mechanics) and MSMEs across Africa, from Kibera's artisans in Nairobi-Kenya to Lagos' small manufacturers in Nigeria.
+                        </p>
+                    </div>
+                </div>
+                <div class="md:w-1/2 md:pl-12">
+                    <div class="bg-white rounded-lg shadow-xl p-8">
+                        <h3 class="text-xl font-semibold mb-5 text-gray-800">Value Proposition</h3>
+                        <ul class="custom-list space-y-4">
+                            <li class="text-gray-600">Mobile-first platform with offline capabilities</li>
+                            <li class="text-gray-600">AI-driven job matching for local and cross-border opportunities</li>
+                            <li class="text-gray-600">E-commerce platform designed for informal sector needs</li>
+                            <li class="text-gray-600">Real-time market analysis and trade analytics</li>
+                            <li class="text-gray-600">Peer-to-peer upskilling and mentorship marketplace</li>
+                            <li class="text-gray-600">Multi-language support (Swahili, English, French)</li>
+                            <li class="text-gray-600">Integrated mobile money payments across countries</li>
+                           
                         </ul>
                     </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Market Context -->
+    <section id="market" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center gradient-text">Market Context</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div class="bg-orange-50 rounded-lg p-8 shadow-lg">
+                    <div class="flex items-center mb-6">
+                        <div class="bg-orange-500 p-3 rounded-full mr-4">
+                            <i class="fas fa-map-marker-alt text-white text-xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-800">Kenya Context</h3>
+                    </div>
+                    <ul class="space-y-4">
+                        <li class="flex items-start">
+                            <span class="text-orange-500 mr-2">✓</span>
+                            <span class="text-gray-600">The Jua Kali sector employs 14+ million, contributing to about 30% to GDP</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-orange-500 mr-2">✓</span>
+                            <span class="text-gray-600">90% mobile penetration, supporting mobile-first solutions</span>
+                        </li>
+                        <!-- <li class="flex items-start">
+                            <span class="text-orange-500 mr-2">✓</span>
+                            <span class="text-gray-600">Tech ecosystem raised $1.1 billion in 2023</span>
+                        </li> -->
+                        <li class="flex items-start">
+                            <span class="text-orange-500 mr-2">✓</span>
+                            <span class="text-gray-600">Artisans face job scarcity, lack of digital tools, and financial exclusion</span>
+                        </li>
+                    </ul>
                 </div>
                 
-                <div class="bg-white p-6 rounded-lg shadow-sm">
-                    <h3 class="text-xl mb-4 primary-text">Kenya Context</h3>
-                    <p class="mb-4">
-                        Nairobi has emerged as a fashion hub, with young professionals (25–35 years) and retailers embracing sustainable, artisanal products. The city's KSh 110 billion tech ecosystem, powered by M-Pesa's KSh 31 trillion in annual transactions, enables scalable e-commerce solutions.
-                    </p>
-                    <p class="mb-4">
-                        Kenya's Vision 2030 and MSME policies encourage inclusive businesses, creating pathways for refugee products to reach urban markets and, eventually, East Africa.
-                    </p>
-                    <p>
-                        Emerging demand for "Made in Africa" goods positions IMARISHA to tap into regional trade networks, starting with Uganda and Ethiopia, where similar cultural products thrive.
-                    </p>
+                <div class="bg-green-50 rounded-lg p-8 shadow-lg">
+                    <div class="flex items-center mb-6">
+                        <div class="bg-green-500 p-3 rounded-full mr-4">
+                            <i class="fas fa-globe-africa text-white text-xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-800">Africa Context</h3>
+                    </div>
+                    <ul class="space-y-4">
+                        <li class="flex items-start">
+                            <span class="text-green-500 mr-2">✓</span>
+                            <span class="text-gray-600">Informal workers dominate 80% of jobs across the continent</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-green-500 mr-2">✓</span>
+                            <span class="text-gray-600">Only 20% of MSMEs export due to trade barriers</span>
+                        </li>
+                        <!-- <li class="flex items-start">
+                            <span class="text-green-500 mr-2">✓</span>
+                            <span class="text-gray-600">AfCFTA represents a $3 trillion market opportunity</span>
+                        </li> -->
+                        <li class="flex items-start">
+                            <span class="text-green-500 mr-2">✓</span>
+                            <span class="text-gray-600">Digital platforms needed to simplify cross-border trade, payments, and market access</span>
+                        </li>
+                    </ul>
                 </div>
-            </div>
-
-            <div class="bg-accent-bg p-6 rounded-lg shadow-sm">
-                <h3 class="text-xl mb-4 text-white" style="color: #F2B705;">Market Gap</h3>
-                <p class="text-green">
-                    Refugee artisans are excluded from mainstream fashion supply chains due to geographic isolation, lack of production infrastructure, and limited digital marketing skills. Existing CBOs and NGOs offer basic training (e.g., sewing) but rarely connect artisans to viable markets or provide advanced tools. IMARISHA bridges this gap with a tech-savvy, market-driven model that prioritizes quality, accessibility, and storytelling.
-                </p>
-            </div>
-        </section>
-
-        <!-- Core Features and Functionalities -->
-        <section id="features" class="mb-16">
-            <div class="flex items-center mb-8">
-                <div class="section-divider"></div>
-                <h2 class="text-3xl">Core Features and Functionalities</h2>
             </div>
             
-            <p class="mb-6 bg-white p-4 rounded-lg shadow-sm">
-                IMARISHA integrates a physical fashion hub in Kakuma with the SokoMoja e-commerce platform, organized into three pillars—Production Empowerment, Market Access, and Skill Development—to maximize impact. Each feature is designed to address specific challenges faced by refugee artisans.
+            <div class="mt-16 bg-blue-50 rounded-lg p-8 shadow-lg">
+                <div class="flex items-center mb-6">
+                    <div class="bg-blue-500 p-3 rounded-full mr-4">
+                        <i class="fas fa-lightbulb text-white text-xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-800">The Opportunity Gap</h3>
+                </div>
+                <p class="text-gray-600 mb-6 leading-relaxed">
+                    No tailored platforms exist for informal workers. Global solutions like Upwork are inaccessible, while local SaaS targets formal SMEs. JKCA fills this gap with affordable, localized, and offline-capable tools that specifically address the needs of Africa's informal sector.
+                </p>
+                <div class="bg-white p-6 rounded-lg">
+                    <div class="flex flex-col md:flex-row justify-between">
+                        <div class="mb-6 md:mb-0 md:w-1/3 text-center">
+                            <div class="text-5xl font-bold text-orange-500 mb-2">80%</div>
+                            <p class="text-gray-500">Informal Economy in Many African Countries</p>
+                        </div>
+                        <div class="mb-6 md:mb-0 md:w-1/3 text-center">
+                            <div class="text-5xl font-bold text-green-500 mb-2">52%</div>
+                            <p class="text-gray-500">Potential Intra-African Trade Boost by 2030</p>
+                        </div>
+                        <!-- <div class="md:w-1/3 text-center">
+                            <div class="text-5xl font-bold text-blue-500 mb-2">$1.5B</div>
+                            <p class="text-gray-500">Target Transaction Volume by 2029</p>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4 text-center gradient-text">Core Features & Functionalities</h2>
+            <p class="text-gray-600 text-center mb-12 md:w-2/3 mx-auto">
+                JKCA is structured around three pillars
             </p>
 
-            <!-- Pillar 1 -->
-            <div class="mb-10">
-                <h3 class="text-xl mb-4 flex items-center">
-                    <span class="inline-block w-8 h-8 rounded-full bg-primary-color text-white text-center mr-3 shadow-md">1</span>
-                    <span class="primary-text">Production Empowerment</span>
-                </h3>
-                <p class="mb-4 pl-11">
-                    Provide artisans with a fully equipped workspace, materials, and fair compensation to scale production of market-ready fashion products.
-                </p>
-                
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pl-11">
-                    <div class="feature-card p-5 border rounded-lg shadow-sm">
-                        <h4 class="font-semibold text-lg mb-3 primary-text">Fashion Production Hub</h4>
-                        <p class="mb-3">
-                            A 200-square-meter center equipped with sewing machines, looms, cutting tables, and storage for raw materials. Artisans collaborate to produce shukas, dresses, bedsheets, sofa covers, and accessories.
+            <!-- Tab Navigation -->
+            <div class="flex flex-wrap mb-8 border-b">
+                <button class="tab-button px-6 py-3 border-b-2 border-orange-500 text-orange-500 font-semibold" 
+                        onclick="openTab(event, 'pillar1')">
+                    Market Intelligence & E-Commerce
+                </button>
+                <button class="tab-button px-6 py-3 border-b-2 border-transparent text-gray-500 font-semibold" 
+                        onclick="openTab(event, 'pillar2')">
+                    Cross-Border Professional Services
+                </button>
+                <button class="tab-button px-6 py-3 border-b-2 border-transparent text-gray-500 font-semibold" 
+                        onclick="openTab(event, 'pillar3')">
+                    Entrepreneurial Skills Development
+                </button>
+                <button class="tab-button px-6 py-3 border-b-2 border-transparent text-gray-500 font-semibold" 
+                        onclick="openTab(event, 'pillar4')">
+                    Additional Features
+                </button>
+            </div>
+
+            <!-- Tab Content -->
+            <div id="pillar1" class="tab-content">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="feature-card bg-white p-6 rounded-lg shadow-lg">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-orange-100 p-3 rounded-full">
+                                <i class="fas fa-store text-orange-500"></i>
+                            </div>
+                            <h3 class="ml-4 text-xl font-semibold">Region-Specific Marketplace</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">
+                            Artisans list products with tags for country, region, or proximity. Buyers filter by location or markets. Enhanced with AI-driven recommendations.
                         </p>
-                        <div class="text-sm text-gray-600">
-                            <div class="mb-1"><strong>Operation:</strong> Mon-Sat, 8AM-5PM, rotating shifts for 30 artisans</div>
-                            <div class="mb-1"><strong>Impact:</strong> 500 items/month (tripling current output)</div>
-                            <div><strong>Tech:</strong> Inventory tracking system with dashboard</div>
+                        <div class="bg-orange-50 p-4 rounded-lg">
+                            <p class="text-sm text-gray-700"><strong>Impact:</strong> A Kenyan tailor sells uniforms to Rwanda, boosting intra-African trade.</p>
                         </div>
                     </div>
-                    
-                    <div class="feature-card p-5 border rounded-lg shadow-sm">
-                        <h4 class="font-semibold text-lg mb-3 primary-text">Skill Purchase Model</h4>
-                        <p class="mb-3">
-                            Artisans are paid per item or hourly for complex designs, with contracts signed via a mobile app. Payments are disbursed weekly through M-Pesa, with a digital ledger recording earnings.
+
+                    <div class="feature-card bg-white p-6 rounded-lg shadow-lg">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-orange-100 p-3 rounded-full">
+                                <i class="fas fa-chart-line text-orange-500"></i>
+                            </div>
+                            <h3 class="ml-4 text-xl font-semibold">Market Insights Dashboard</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">
+                            Displays real-time trends based on platform sales and external trade data. Enhanced with predictive analytics for demand forecasting.
                         </p>
-                        <div class="text-sm text-gray-600">
-                            <div class="mb-1"><strong>Operation:</strong> Clear contracts with deliverables</div>
-                            <div class="mb-1"><strong>Impact:</strong> KSh 5,000-10,000/month per artisan</div>
-                            <div><strong>Tech:</strong> M-Pesa integration with secure authentication</div>
+                        <div class="bg-orange-50 p-4 rounded-lg">
+                            <p class="text-sm text-gray-700"><strong>Impact:</strong> A Ghanaian MSME exports maize to Kenya after spotting demand spikes.</p>
                         </div>
                     </div>
-                    
-                    <div class="feature-card p-5 border rounded-lg shadow-sm">
-                        <h4 class="font-semibold text-lg mb-3 primary-text">Quality Assurance System</h4>
-                        <p class="mb-3">
-                            Products undergo checks for stitching strength, color consistency, and design accuracy. Verified items receive a digital "IMARISHA Certified" badge on SokoMoja.
+
+                    <div class="feature-card bg-white p-6 rounded-lg shadow-lg">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-orange-100 p-3 rounded-full">
+                                <i class="fas fa-analytics text-orange-500"></i>
+                            </div>
+                            <h3 class="ml-4 text-xl font-semibold">Trade Analytics Tool</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">
+                            Forecasts cross-border demand using sales and trade data, guiding export decisions and helping MSMEs plan strategically.
                         </p>
-                        <div class="text-sm text-gray-600">
-                            <div class="mb-1"><strong>Operation:</strong> Daily checks with 90% pass target</div>
-                            <div class="mb-1"><strong>Impact:</strong> 15% sales boost, returns under 5%</div>
-                            <div><strong>Tech:</strong> Digital verification badges and scorecards</div>
+                        <div class="bg-orange-50 p-4 rounded-lg">
+                            <p class="text-sm text-gray-700"><strong>Impact:</strong> MSMEs reduce trade risks through data-driven decision making.</p>
+                        </div>
+                    </div>
+
+                    <div class="feature-card bg-white p-6 rounded-lg shadow-lg">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-orange-100 p-3 rounded-full">
+                                <i class="fas fa-shopping-cart text-orange-500"></i>
+                            </div>
+                            <h3 class="ml-4 text-xl font-semibold">E-Commerce Integration</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">
+                            Built-in storefront for artisans to sell crafts directly, with shipping and tariff calculators.
+                        </p>
+                        <div class="bg-orange-50 p-4 rounded-lg">
+                            <p class="text-sm text-gray-700"><strong>Impact:</strong> A Nigerian jeweler reaches Addis Ababa buyers, increasing their income and market</p>
                         </div>
                     </div>
                 </div>
             </div>
+            
+            <div id="pillar2" class="tab-content hidden">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="feature-card bg-white p-6 rounded-lg shadow-lg">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-green-100 p-3 rounded-full">
+                                <i class="fas fa-briefcase text-green-500"></i>
+                            </div>
+                            <h3 class="ml-4 text-xl font-semibold">Skills Marketplace</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">
+                            Artisans list services with availability and reviews. Enhanced with AI-driven job matching. Clients post jobs with specific requirements.
+                        </p>
+                        <div class="bg-green-50 p-4 rounded-lg">
+                            <p class="text-sm text-gray-700"><strong>Impact:</strong> A Rwandan solar installer works in Kenya, creating cross-border jobs.</p>
+                        </div>
+                    </div>
 
-            <!-- Pillar 2 -->
-            <div class="mb-10">
-                <h3 class="text-xl mb-4 flex items-center">
-                    <span class="inline-block w-8 h-8 rounded-full bg-primary-color text-white text-center mr-3 shadow-md">2</span>
-                    <span class="primary-text">Market Access</span>
-                </h3>
-                <p class="mb-4 pl-11">
-                    Connect artisan products to diverse buyers through a physical shop, e-commerce, and strategic partnerships, maximizing reach and revenue.
-                </p>
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pl-11 mb-6">
-                    <div class="feature-card p-5 border rounded-lg shadow-sm">
-                        <h4 class="font-semibold text-lg mb-3 primary-text">SokoMoja E-Commerce Platform</h4>
-                        <p class="mb-3">
-                            A Progressive Web App where artisans list products with high-resolution photos, personal stories, and tags. Buyers can filter by price, category, or location. AI suggests trending items.
+                    <div class="feature-card bg-white p-6 rounded-lg shadow-lg">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-green-100 p-3 rounded-full">
+                                <i class="fas fa-file-contract text-green-500"></i>
+                            </div>
+                            <h3 class="ml-4 text-xl font-semibold">Cross-Border Service Contracts</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">
+                            MSMEs post multi-country projects with detailed requirements. Workers from different countries can bid on these projects.
                         </p>
-                        <div class="text-sm text-gray-600">
-                            <div class="mb-1"><strong>Operation:</strong> Simplified Swahili listing form, M-Pesa/card payments</div>
-                            <div class="mb-1"><strong>Impact:</strong> 2,000 buyers by year 2, KSh 1M/month revenue</div>
-                            <div><strong>Tech:</strong> Django Oscar, Hugging Face NLP, optimized for 2G</div>
+                        <div class="bg-green-50 p-4 rounded-lg">
+                            <p class="text-sm text-gray-700"><strong>Impact:</strong> Breaks service barriers, enabling Ugandan experts forinstance to serve Tanzania.</p>
                         </div>
                     </div>
-                    
-                    <div class="feature-card p-5 border rounded-lg shadow-sm">
-                        <h4 class="font-semibold text-lg mb-3 primary-text">Physical Shop in Kakuma</h4>
-                        <p class="mb-3">
-                            A 50-square-meter shop near Kakuma's main market sells products with artisan stories. A tablet-based POS system records sales and syncs with SokoMoja.
-                        </p>
-                        <div class="text-sm text-gray-600">
-                            <div class="mb-1"><strong>Operation:</strong> Daily 9AM-6PM, staffed by trained artisans</div>
-                            <div class="mb-1"><strong>Impact:</strong> 500 buyers/month, KSh 200,000/month revenue</div>
-                            <div><strong>Tech:</strong> POS app with QR code linking to online listings</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pl-11">
-                    <div class="feature-card p-5 border rounded-lg shadow-sm">
-                        <h4 class="font-semibold text-lg mb-3 primary-text">Nairobi Market Linkages</h4>
-                        <p class="mb-3">
-                            Partnerships with boutiques sell IMARISHA products on consignment. Pop-up stalls at markets and fashion showcases target young professionals.
-                        </p>
-                        <div class="text-sm text-gray-600">
-                            <div class="mb-1"><strong>Operation:</strong> Nairobi coordinator manages deliveries</div>
-                            <div class="mb-1"><strong>Impact:</strong> 1,000 buyers/year, 30% income increase</div>
-                            <div><strong>Tech:</strong> CRM system for partner tracking</div>
-                        </div>
-                    </div>
-                    
-                    <div class="feature-card p-5 border rounded-lg shadow-sm">
-                        <h4 class="font-semibold text-lg mb-3 primary-text">Regional Trade Hub</h4>
-                        <p class="mb-3">
-                            Simplifies exports with tariff calculator and multi-currency wallet. Lists products for East African buyers with guides on packaging and customs.
-                        </p>
-                        <div class="text-sm text-gray-600">
-                            <div class="mb-1"><strong>Operation:</strong> Targets retailers in Kampala and Addis Ababa</div>
-                            <div class="mb-1"><strong>Impact:</strong> 100 exports/month by year 3, KSh 100,000/month</div>
-                            <div><strong>Tech:</strong> Blockchain for transparent transactions</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-            <!-- Pillar 3 -->
-            <div class="mb-10">
-                <h3 class="text-xl mb-4 flex items-center">
-                    <span class="inline-block w-8 h-8 rounded-full bg-primary-color text-white text-center mr-3 shadow-md">3</span>
-                    <span class="primary-text">Skill Development</span>
-                </h3>
-                <p class="mb-4 pl-11">
-                    Equip artisans and youth with advanced craftsmanship and business skills to enhance products and foster entrepreneurship.
-                </p>
-                
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pl-11">
-                    <div class="feature-card p-5 border rounded-lg shadow-sm">
-                        <h4 class="font-semibold text-lg mb-3 primary-text">Training Academy</h4>
-                        <p class="mb-3">
-                            Offers courses on tailoring, design, marketing, and bookkeeping, with Swahili video tutorials and hands-on workshops. Free for teenage mothers.
-                        </p>
-                        <div class="text-sm text-gray-600">
-                            <div class="mb-1"><strong>Operation:</strong> 2 sessions/month for 20 learners each</div>
-                            <div class="mb-1"><strong>Impact:</strong> 100 artisans trained/year, 10% start businesses</div>
-                            <div><strong>Tech:</strong> Mobile-friendly LMS with video integration</div>
+                    <!-- <div class="feature-card bg-white p-6 rounded-lg shadow-lg">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-green-100 p-3 rounded-full">
+                                <i class="fas fa-certificate text-green-500"></i>
+                            </div>
+                            <h3 class="ml-4 text-xl font-semibold">Service Verification Badge</h3>
                         </div>
-                    </div>
-                    
-                    <div class="feature-card p-5 border rounded-lg shadow-sm">
-                        <h4 class="font-semibold text-lg mb-3 primary-text">Peer Mentorship Chat</h4>
-                        <p class="mb-3">
-                            Connects artisans to mentors via a WhatsApp-integrated chatbot. Users can book sessions, ask questions, and receive personalized guidance.
+                        <p class="text-gray-600 mb-4">
+                            Verified artisans get badges via admin checks or community ratings. Enhanced with blockchain-based credentials for transparency.
                         </p>
-                        <div class="text-sm text-gray-600">
-                            <div class="mb-1"><strong>Operation:</strong> Top artisans earn extra as mentors</div>
-                            <div class="mb-1"><strong>Impact:</strong> Upskills 50 youth in year 1, 20% launch side hustles</div>
-                            <div><strong>Tech:</strong> Rasa chatbot with WhatsApp integration</div>
+                        <div class="bg-green-50 p-4 rounded-lg">
+                            <p class="text-sm text-gray-700"><strong>Impact:</strong> A Kenyan MSME hires a verified Ghanaian electrician with confidence.</p>
                         </div>
-                    </div>
-                    
-                    <div class="feature-card p-5 border rounded-lg shadow-sm">
-                        <h4 class="font-semibold text-lg mb-3 primary-text">Community Skill-Sharing Forum</h4>
-                        <p class="mb-3">
-                            A digital forum where artisans post tips, ask questions, or crowdfund tools. Weekly prompts encourage knowledge sharing.
+                    </div> -->
+
+                    <div class="feature-card bg-white p-6 rounded-lg shadow-lg">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-green-100 p-3 rounded-full">
+                                <i class="fas fa-file-invoice-dollar text-green-500"></i>
+                            </div>
+                            <h3 class="ml-4 text-xl font-semibold">Digital Invoicing</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">
+                            Artisans send invoices for services via app, paid through mobile money or cards with instant cross-border transactions.
                         </p>
-                        <div class="text-sm text-gray-600">
-                            <div class="mb-1"><strong>Operation:</strong> Accessible via SokoMoja, moderated for quality</div>
-                            <div class="mb-1"><strong>Impact:</strong> Reduces material costs by 5% through collaboration</div>
-                            <div><strong>Tech:</strong> Real-time forum with mobile optimization</div>
+                        <div class="bg-green-50 p-4 rounded-lg">
+                            <p class="text-sm text-gray-700"><strong>Impact:</strong> A Ugandan mason gets paid instantly by a Kenyan client, reducing delays.</p>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <!-- Additional Features -->
-            <div>
-                <h3 class="text-xl mb-4 primary-text">Additional Features</h3>
-                
-                <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-                    <div class="feature-card p-4 border rounded-lg shadow-sm">
-                        <h4 class="font-semibold mb-2 primary-text">Offline-First Access</h4>
-                        <p class="text-sm">
-                            Caches content for 2G networks and offers USSD (*123#) for non-smartphone users to browse and order products.
+            
+            <div id="pillar3" class="tab-content hidden">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="feature-card bg-white p-6 rounded-lg shadow-lg">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-blue-100 p-3 rounded-full">
+                                <i class="fas fa-user-tie text-blue-500"></i>
+                            </div>
+                            <h3 class="ml-4 text-xl font-semibold">Mentorship Listings</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">
+                            Artisans offer skills with bios and hourly rates. Users can book mentorship sessions via chat to learn new skills or techniques.
                         </p>
-                    </div>
-                    
-                    <div class="feature-card p-4 border rounded-lg shadow-sm">
-                        <h4 class="font-semibold mb-2 primary-text">Multi-Language UX</h4>
-                        <p class="text-sm">
-                            Swahili and English interface, with plans for Dinka and Somali by year 2, making the platform accessible to diverse refugee groups.
-                        </p>
-                    </div>
-                    
-                    <div class="feature-card p-4 border rounded-lg shadow-sm">
-                        <h4 class="font-semibold mb-2 primary-text">Artisan Dashboard</h4>
-                        <p class="text-sm">
-                            Shows earnings, pending orders, training progress, and quality scores, empowering artisans to manage their work.
-                        </p>
-                    </div>
-                    
-                    <div class="feature-card p-4 border rounded-lg shadow-sm">
-                        <h4 class="font-semibold mb-2 primary-text">Admin Dashboard</h4>
-                        <p class="text-sm">
-                            Tracks sales, payouts, inventory, and quality metrics, allowing efficient management of the enterprise.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Business Model -->
-        <section id="business" class="mb-16">
-            <div class="flex items-center mb-8">
-                <div class="section-divider"></div>
-                <h2 class="text-3xl">Business Model</h2>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-                <div class="bg-white p-6 rounded-lg shadow-sm">
-                    <h3 class="text-xl mb-4 primary-text">Revenue Streams</h3>
-                    <div class="overflow-x-auto">
-                        <table class="w-full border-collapse">
-                            <thead>
-                                <tr class="bg-accent-bg text-white">
-                                    <th class="border border-border-color px-4 py-2 text-left">Stream</th>
-                                    <th class="border border-border-color px-4 py-2 text-left">Details</th>
-                                    <th class="border border-border-color px-4 py-2 text-left">Target</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr class="table-row-striped">
-                                    <td class="border border-border-color px-4 py-2">Product Sales</td>
-                                    <td class="border border-border-color px-4 py-2">Shukas (KSh 1,000-5,000), dresses (KSh 2,000-10,000), bedsheets (KSh 1,500-6,000), sofa covers (KSh 2,000-6,000)</td>
-                                    <td class="border border-border-color px-4 py-2">KSh 500,000/month by year 2</td>
-                                </tr>
-                                <tr class="table-row-striped">
-                                    <td class="border border-border-color px-4 py-2">Training Fees</td>
-                                    <td class="border border-border-color px-4 py-2">KSh 200/month for non-sponsored learners (Free for teenage mothers)</td>
-                                    <td class="border border-border-color px-4 py-2">KSh 10,000/month from 50 students</td>
-                                </tr>
-                                <tr class="table-row-striped">
-                                    <td class="border border-border-color px-4 py-2">Transaction Fees</td>
-                                    <td class="border border-border-color px-4 py-2">2% on online sales</td>
-                                    <td class="border border-border-color px-4 py-2">KSh 5,000/month at 100 sales</td>
-                                </tr>
-                                <tr class="table-row-striped">
-                                    <td class="border border-border-color px-4 py-2">Premium Listings</td>
-                                    <td class="border border-border-color px-4 py-2">KSh 500/month for featured products on SokoMoja homepage</td>
-                                    <td class="border border-border-color px-4 py-2">KSh 5,000/month from 10 artisans</td>
-                                </tr>
-                                <tr class="table-row-striped">
-                                    <td class="border border-border-color px-4 py-2">Partnerships</td>
-                                    <td class="border border-border-color px-4 py-2">NGO-sponsored training programs</td>
-                                    <td class="border border-border-color px-4 py-2">KSh 100,000/year starting year 2</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                
-                <div class="bg-white p-6 rounded-lg shadow-sm">
-                    <h3 class="text-xl mb-4 primary-text">Cost Structure</h3>
-                    <div class="mb-6">
-                        <h4 class="font-semibold mb-2 accent-text">Initial Costs (KSh 300,000)</h4>
-                        <div class="grid grid-cols-2 gap-2 text-sm">
-                            <div class="bg-bg-light p-3 rounded border border-border-color">Hub setup: KSh 100,000</div>
-                            <div class="bg-bg-light p-3 rounded border border-border-color">Equipment: KSh 50,000</div>
-                            <div class="bg-bg-light p-3 rounded border border-border-color">Website: KSh 50,000</div>
-                            <div class="bg-bg-light p-3 rounded border border-border-color">Marketing: KSh 50,000</div>
-                            <div class="bg-bg-light p-3 rounded border border-border-color">Miscellaneous: KSh 50,000</div>
+                        <div class="bg-blue-50 p-4 rounded-lg">
+                            <p class="text-sm text-gray-700"><strong>Impact:</strong> A Nigerian tailor learns beadwork from Kenya, improving offerings.</p>
                         </div>
                     </div>
-                    
+
+                    <div class="feature-card bg-white p-6 rounded-lg shadow-lg">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-blue-100 p-3 rounded-full">
+                                <i class="fas fa-comments text-blue-500"></i>
+                            </div>
+                            <h3 class="ml-4 text-xl font-semibold">Virtual Mentorship Chat</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">
+                            Real-time chat for learning with affordable hourly rates. Enhanced with an AI chatbot suggesting mentors based on specific needs.
+                        </p>
+                        <div class="bg-blue-50 p-4 rounded-lg">
+                            <p class="text-sm text-gray-700"><strong>Impact:</strong> Ghanaian MSMEs learn remotely from Rwandan mentors, scaling skills.</p>
+                        </div>
+                    </div>
+
+                    <!-- <div class="feature-card bg-white p-6 rounded-lg shadow-lg">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-blue-100 p-3 rounded-full">
+                                <i class="fas fa-hands-helping text-blue-500"></i>
+                            </div>
+                            <h3 class="ml-4 text-xl font-semibold">Mentorship Marketplace</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">
+                            Artisans bid for mentorship with competitive pricing. Creates a dynamic learning ecosystem with market-driven rates.
+                        </p>
+                        <div class="bg-blue-50 p-4 rounded-lg">
+                            <p class="text-sm text-gray-700"><strong>Impact:</strong> Drives engagement, with 10,000 mentorship sessions by year 3.</p>
+                        </div>
+                    </div> -->
+
+                    <div class="feature-card bg-white p-6 rounded-lg shadow-lg">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-blue-100 p-3 rounded-full">
+                                <i class="fas fa-graduation-cap text-blue-500"></i>
+                            </div>
+                            <h3 class="ml-4 text-xl font-semibold">Training Hub</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">
+                            Video tutorials in Swahili/English on skills like digital marketing, bookkeeping, for continuous learning.
+                        </p>
+                        <div class="bg-blue-50 p-4 rounded-lg">
+                            <p class="text-sm text-gray-700"><strong>Impact:</strong> A Kenyan carpenter learns to export in various contries, doubling income.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="pillar4" class="tab-content hidden">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="feature-card bg-white p-6 rounded-lg shadow-lg">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-purple-100 p-3 rounded-full">
+                                <i class="fas fa-wifi text-purple-500"></i>
+                            </div>
+                            <h3 class="ml-4 text-xl font-semibold">Offline-First PWA</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">
+                            Caches jobs, products, and chats for 2G/rural areas. Syncs at hotspots. Enhanced with USSD for non-smartphone users.
+                        </p>
+                        <div class="bg-purple-50 p-4 rounded-lg">
+                            <p class="text-sm text-gray-700"><strong>Impact:</strong> Reaches rural artisans, despite less mobile penetration in some regions.</p>
+                        </div>
+                    </div>
+
+                    <div class="feature-card bg-white p-6 rounded-lg shadow-lg">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-purple-100 p-3 rounded-full">
+                                <i class="fas fa-language text-purple-500"></i>
+                            </div>
+                            <h3 class="ml-4 text-xl font-semibold">Multi-Currency & Multi-Language Support</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">
+                            Supports KES, NGN, GHS (pegged to USD), with Swahili, English, French and French, with plan for other African languages.
+                        </p>
+                        <div class="bg-purple-50 p-4 rounded-lg">
+                            <p class="text-sm text-gray-700"><strong>Impact:</strong> A Nigerian buyer pays in NGN, Kenyan seller receives KES seamlessly.</p>
+                        </div>
+                    </div>
+
+                    <div class="feature-card bg-white p-6 rounded-lg shadow-lg">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-purple-100 p-3 rounded-full">
+                                <i class="fas fa-mobile-alt text-purple-500"></i>
+                            </div>
+                            <h3 class="ml-4 text-xl font-semibold">Mobile Money Integration</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">
+                            Payments via M-Pesa, MTN Money, Orange Money with affordable transaction fees. Enhanced with blockchain for cross-border transparency.
+                        </p>
+                        <div class="bg-purple-50 p-4 rounded-lg">
+                            <p class="text-sm text-gray-700"><strong>Impact:</strong> Taps the mobile money market (GSMA 2023).</p>
+                        </div>
+                    </div>
+
+                    <div class="feature-card bg-white p-6 rounded-lg shadow-lg">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-purple-100 p-3 rounded-full">
+                                <i class="fas fa-users text-purple-500"></i>
+                            </div>
+                            <h3 class="ml-4 text-xl font-semibold">Community Forum</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">
+                            Artisans share tips, form cooperatives, or crowdfund with specific goals. Moderated for trust and quality content.
+                        </p>
+                        <div class="bg-purple-50 p-4 rounded-lg">
+                            <p class="text-sm text-gray-700"><strong>Impact:</strong> A Mombasa mason joins a Nairobi cooperative, cutting solo operational costs.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tech Stack Section -->
+    <section id="tech" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center gradient-text">Technical Implementation</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-gray-50 rounded-lg shadow-lg p-6">
+                    <div class="text-center mb-6">
+                        <div class="inline-block p-4 bg-orange-100 rounded-full mb-4">
+                            <i class="fas fa-server text-orange-500 text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800">Backend</h3>
+                    </div>
+                    <ul class="space-y-3">
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                            <span class="text-gray-700">Django (scalable, secure framework)</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                            <span class="text-gray-700">PostgreSQL with PostGIS (geospatial)</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                            <span class="text-gray-700">Django REST Framework (APIs)</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                            <span class="text-gray-700">Celery (async tasks)</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                            <span class="text-gray-700">Redis (caching, messaging)</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="bg-gray-50 rounded-lg shadow-lg p-6">
+                    <div class="text-center mb-6">
+                        <div class="inline-block p-4 bg-blue-100 rounded-full mb-4">
+                            <i class="fas fa-laptop-code text-blue-500 text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800">Frontend</h3>
+                    </div>
+                    <ul class="space-y-3">
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                            <span class="text-gray-700">Bootstrap (responsive design)</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                            <span class="text-gray-700">JavaScript (interactive elements)</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                            <span class="text-gray-700">Progressive Web App (PWA)</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                            <span class="text-gray-700">Service Workers (offline capability)</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                            <span class="text-gray-700">Chart.js (visualizations)</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="bg-gray-50 rounded-lg shadow-lg p-6">
+                    <div class="text-center mb-6">
+                        <div class="inline-block p-4 bg-green-100 rounded-full mb-4">
+                            <i class="fas fa-cogs text-green-500 text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800">Integrations</h3>
+                    </div>
+                    <ul class="space-y-3">
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                            <span class="text-gray-700">M-Pesa, MTN Money, Flutterwave</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                            <span class="text-gray-700">Stellar (blockchain for trade)</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                            <span class="text-gray-700">Google Maps API (location services)</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                            <span class="text-gray-700">Twilio (USSD, SMS notifications)</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                            <span class="text-gray-700">WhatsApp Business API (messaging)</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="mt-12 bg-gray-50 p-8 rounded-lg shadow-lg">
+                <h3 class="text-2xl font-bold mb-6 text-center text-gray-800">Architecture Highlights</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div>
-                        <h4 class="font-semibold mb-2 accent-text">Ongoing Costs (KSh 250,000/year)</h4>
-                        <div class="grid grid-cols-2 gap-2 text-sm">
-                            <div class="bg-bg-light p-3 rounded border border-border-color">Materials: KSh 100,000</div>
-                            <div class="bg-bg-light p-3 rounded border border-border-color">Marketing: KSh 50,000</div>
-                            <div class="bg-bg-light p-3 rounded border border-border-color">Hosting: KSh 20,000</div>
-                            <div class="bg-bg-light p-3 rounded border border-border-color">Staff: KSh 80,000</div>
-                        </div>
+                        <h4 class="text-lg font-semibold mb-4 text-gray-700">Mobile-First Design</h4>
+                        <p class="text-gray-600 mb-4">The platform will be designed with a mobile-first approach, ensuring optimal performance on smartphones which are the primary internet access device across Africa. The responsive design adapts seamlessly from basic feature phones to high-end devices.</p>
+                        <ul class="text-gray-600 list-disc pl-6 space-y-2">
+                            <li>Progressive enhancement for diverse device capabilities</li>
+                            <li>Minimal data consumption for cost-sensitive users</li>
+                            <li>Touch-optimized interface for mobile interaction</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-semibold mb-4 text-gray-700">Offline Capability</h4>
+                        <p class="text-gray-600 mb-4">The offline-first architecture uses Service Workers and localStorage to cache essential data, allowing users to browse listings, view profiles, and prepare content while offline. Changes sync when connectivity returns.</p>
+                        <ul class="text-gray-600 list-disc pl-6 space-y-2">
+                            <li>Intelligent data syncing when connection is available</li>
+                            <li>Prioritized content loading based on user behavior</li>
+                            <li>USSD fallback for non-smartphone access</li>
+                        </ul>
                     </div>
                 </div>
             </div>
+        </div>
+    </section>
+
+    <!-- Business Model -->
+    <!-- <section id="business" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center gradient-text">Business Model</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div>
+                    <h3 class="text-2xl font-bold mb-6 text-gray-800">Revenue Streams</h3>
+                    <div class="space-y-6">
+                        <div class="bg-white p-6 rounded-lg shadow-md">
+                            <div class="flex justify-between items-center mb-2">
+                                <h4 class="font-semibold text-lg text-gray-800">Subscription</h4>
+                                <span class="bg-orange-100 text-orange-600 py-1 px-3 rounded-full text-sm">$1/month</span>
+                            </div>
+                            <p class="text-gray-600">Basic plan for artisans (jobs, e-commerce, training), free for first 3 months</p>
+                        </div>
+                        
+                        <div class="bg-white p-6 rounded-lg shadow-md">
+                            <div class="flex justify-between items-center mb-2">
+                                <h4 class="font-semibold text-lg text-gray-800">Transaction Fees</h4>
+                                <span class="bg-orange-100 text-orange-600 py-1 px-3 rounded-full text-sm">2%</span>
+                            </div>
+                            <p class="text-gray-600">Applied to all payments processed through the platform</p>
+                        </div>
+                        
+                        <div class="bg-white p-6 rounded-lg shadow-md">
+                            <div class="flex justify-between items-center mb-2">
+                                <h4 class="font-semibold text-lg text-gray-800">Premium Plan</h4>
+                                <span class="bg-orange-100 text-orange-600 py-1 px-3 rounded-full text-sm">$3/month</span>
+                            </div>
+                            <p class="text-gray-600">Access to trade analytics, priority listings, mentorship bidding</p>
+                        </div>
+                        
+                        <div class="bg-white p-6 rounded-lg shadow-md">
+                            <div class="flex justify-between items-center mb-2">
+                                <h4 class="font-semibold text-lg text-gray-800">B2B Licensing</h4>
+                                <span class="bg-orange-100 text-orange-600 py-1 px-3 rounded-full text-sm">$5,000/year</span>
+                            </div>
+                            <p class="text-gray-600">For cooperatives, NGOs, or AfCFTA bodies to manage member artisans</p>
+                        </div>
+                        
+                        <div class="bg-white p-6 rounded-lg shadow-md">
+                            <div class="flex justify-between items-center mb-2">
+                                <h4 class="font-semibold text-lg text-gray-800">Advertisements</h4>
+                                <span class="bg-orange-100 text-orange-600 py-1 px-3 rounded-full text-sm">$500/month</span>
+                            </div>
+                            <p class="text-gray-600">For suppliers (e.g., tool vendors) to reach artisan audience</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-2xl font-bold mb-6 text-gray-800">Financial Projections</h3>
+                    <div class="bg-white p-6 rounded-lg shadow-lg">
+                        <div class="mb-6">
+                            <h4 class="font-semibold text-lg text-gray-800 mb-3">Cost Structure</h4>
+                            <div class="space-y-3">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-600">Development</span>
+                                    <span class="font-medium">$15,000</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-600">Marketing</span>
+                                    <span class="font-medium">$3,000</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-600">Operations (yearly)</span>
+                                    <span class="font-medium">$5,000</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h4 class="font-semibold text-lg text-gray-800 mb-3">Growth Projections</h4>
+                            <div class="mb-6">
+                                <canvas id="userGrowthChart" height="180"></canvas>
+                            </div>
+                            <div class="grid grid-cols-2 gap-4 mt-6">
+                                <div class="text-center p-4 bg-orange-50 rounded-lg">
+                                    <div class="text-2xl font-bold text-orange-500">$10K</div>
+                                    <p class="text-sm text-gray-500">Monthly Revenue (Year 1)</p>
+                                </div>
+                                <div class="text-center p-4 bg-green-50 rounded-lg">
+                                    <div class="text-2xl font-bold text-green-500">$1.5B</div>
+                                    <p class="text-sm text-gray-500">Transactions (By 2029)</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6 bg-white p-6 rounded-lg shadow-lg">
+                        <h4 class="font-semibold text-lg text-gray-800 mb-3">Break-Even Analysis</h4>
+                        <p class="text-gray-600 mb-4">With the projected growth rate and revenue streams, the platform is expected to reach break-even point by Q2 of Year 2, with positive cash flow thereafter.</p>
+                        <div class="h-4 bg-gray-200 rounded-full overflow-hidden">
+                            <div class="h-full bg-gradient-to-r from-orange-500 to-green-500 rounded-full" style="width: 65%;"></div>
+                        </div>
+                        <div class="flex justify-between mt-2 text-sm text-gray-500">
+                            <span>Launch</span>
+                            <span>Break-Even (Q2 Y2)</span>
+                            <span>Profit</span>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+            
+            <div class="mt-16">
+                <h3 class="text-2xl font-bold mb-8 text-center text-gray-800">Impact Projections (By 2030)</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+                    <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                        <div class="text-4xl font-bold text-orange-500 mb-2">1M +</div>
+                        <p class="text-gray-600">Users Across 54 Countries</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                        <div class="text-4xl font-bold text-green-500 mb-2">$1.5B</div>
+                        <p class="text-gray-600">Transaction Volume</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                        <div class="text-4xl font-bold text-blue-500 mb-2">1M +</div>
+                        <p class="text-gray-600">Cross-Border Jobs</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                        <div class="text-4xl font-bold text-purple-500 mb-2">5M</div>
+                        <p class="text-gray-600">MSMEs Upskilled</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                        <div class="text-4xl font-bold text-gray-500 mb-2">3</div>
+                        <p class="text-gray-600">SDGs Impacted (8, 9, 10)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Roadmap Section -->
+    <section id="roadmap" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center gradient-text">Implementation Roadmap</h2>
+            
+            <div class="relative">
+                <!-- Timeline structure for larger screens -->
+                <div class="hidden md:block timeline-container mb-12">
+                    <div class="timeline-item left">
+                        <div class="bg-orange-50 p-6 rounded-lg shadow-md mb-4">
+                            <h3 class="text-xl font-bold text-orange-500 mb-2">Months 1–3: Validation</h3>
+                            <ul class="text-gray-600 space-y-2">
+                                <li>• Survey 200 Kenyan artisans</li>
+                                <li>• Design MVP (jobs, payments, marketplace)</li>
+                                <li>• User experience testing with focus groups</li>
+                                <li>• Technical prototype development</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="timeline-item right">
+                        <div class="bg-green-50 p-6 rounded-lg shadow-md mb-4">
+                            <h3 class="text-xl font-bold text-green-500 mb-2">Months 4–6: Pilot</h3>
+                            <ul class="text-gray-600 space-y-2">
+                                <li>• Launch in Nairobi/Mombasa</li>
+                                <li>• Onboard 1,000 initial users</li>
+                                <li>• Integrate M-Pesa payments</li>
+                                <li>• Gather initial user feedback and metrics</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="timeline-item left">
+                        <div class="bg-blue-50 p-6 rounded-lg shadow-md mb-4">
+                            <h3 class="text-xl font-bold text-blue-500 mb-2">Months 7–12: Growth</h3>
+                            <ul class="text-gray-600 space-y-2">
+                                <li>• Add trade analytics features</li>
+                                <li>• Launch mentorship chat functionality</li>
+                                <li>• Implement USSD for feature phones</li>
+                                <li>• Expand to Uganda, Tanzania</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="timeline-item right">
+                        <div class="bg-purple-50 p-6 rounded-lg shadow-md mb-4">
+                            <h3 class="text-xl font-bold text-purple-500 mb-2">Year 2–3: Scale</h3>
+                            <ul class="text-gray-600 space-y-2">
+                                <li>• Reach Nigeria, Ghana, Ethiopia</li>
+                                <!-- <li>• Target 50,000 active users</li> -->
+                                <li>• Implement blockchain for cross-border payments</li>
+                                <li>• Develop B2B partnerships with cooperatives</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Responsive timeline for mobile -->
+                <div class="md:hidden space-y-6">
+                    <div class="bg-orange-50 p-6 rounded-lg shadow-md">
+                        <h3 class="text-xl font-bold text-orange-500 mb-2">Months 1–3: Validation</h3>
+                        <ul class="text-gray-600 space-y-2">
+                            <li>• Survey 200 Kenyan artisans</li>
+                            <li>• Design MVP (jobs, payments, marketplace)</li>
+                            <li>• User experience testing with focus groups</li>
+                            <li>• Technical prototype development</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-green-50 p-6 rounded-lg shadow-md">
+                        <h3 class="text-xl font-bold text-green-500 mb-2">Months 4–6: Pilot</h3>
+                        <ul class="text-gray-600 space-y-2">
+                            <li>• Launch in Nairobi/Mombasa</li>
+                            <li>• Onboard 1,000 initial users</li>
+                            <li>• Integrate M-Pesa payments</li>
+                            <li>• Gather initial user feedback and metrics</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-blue-50 p-6 rounded-lg shadow-md">
+                        <h3 class="text-xl font-bold text-blue-500 mb-2">Months 7–12: Growth</h3>
+                        <ul class="text-gray-600 space-y-2">
+                            <li>• Add trade analytics features</li>
+                            <li>• Launch mentorship chat functionality</li>
+                            <li>• Implement USSD for feature phones</li>
+                            <li>• Expand to Uganda, Tanzania</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-purple-50 p-6 rounded-lg shadow-md">
+                        <h3 class="text-xl font-bold text-purple-500 mb-2">Year 2–3: Scale</h3>
+                        <ul class="text-gray-600 space-y-2">
+                            <li>• Reach Nigeria, Ghana, Ethiopia</li>
+                            <!-- <li>• Target 50,000 active users</li> -->
+                            <li>• Implement blockchain for cross-border payments</li>
+                            <li>• Develop B2B partnerships with cooperatives</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- <div class="mt-12 bg-gray-50 p-8 rounded-lg shadow-lg">
+                <h3 class="text-2xl font-bold mb-6 text-center text-gray-800">Funding Strategy</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h4 class="text-xl font-semibold mb-4 text-orange-500">Seed Funding</h4>
+                        <p class="text-gray-600 mb-3"><strong>Target:</strong> $50,000–150,000</p>
+                        <p class="text-gray-600 mb-3"><strong>Sources:</strong> Savannah Fund, Kepple Africa, AfCFTA grants</p>
+                        <p class="text-gray-600 mb-3"><strong>Timeline:</strong> Months 3-6</p>
+                        <p class="text-gray-600"><strong>Purpose:</strong> Cover MVP development, initial marketing, and first-year operations</p>
+                    </div>
+                    
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h4 class="text-xl font-semibold mb-4 text-green-500">Series A</h4>
+                        <p class="text-gray-600 mb-3"><strong>Target:</strong> $500,000</p>
+                        <p class="text-gray-600 mb-3"><strong>Sources:</strong> Novastar, Afreximbank</p>
+                        <p class="text-gray-600 mb-3"><strong>Timeline:</strong> Year 2</p>
+                        <p class="text-gray-600"><strong>Purpose:</strong> Fund regional expansion, technology scaling, and team growth</p>
+                    </div>
+                </div>
+                
+                <div class="mt-8 p-6 bg-gradient-to-r from-orange-100 to-green-100 rounded-lg">
+                    <h4 class="text-xl font-semibold mb-4 text-gray-800 text-center">Pitch Headline</h4>
+                    <p class="text-lg text-center italic">"JKCA digitizes Africa's informal economy, unlocking $10 billion in trade."</p>
+                </div>
+            </div> -->
+        </div>
+    </section>
+
+    <!-- Challenges and Mitigations -->
+    <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center gradient-text">Challenges & Mitigations</h2>
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="bg-white p-6 rounded-lg shadow-sm">
-                    <h3 class="text-xl mb-4 primary-text">Break-Even Analysis</h3>
-                    <p class="mb-3">
-                        To reach profitability, IMARISHA needs to sell 1,000 products/month at KSh 1,500 average margin (KSh 450 profit/item) by year 2, generating KSh 450,000/month to cover costs and reinvest.
-                    </p>
-                    <div class="mb-2">
-                        <div class="flex justify-between mb-1">
-                            <span>Progress to break-even:</span>
-                            <span>Year 2 (projected)</span>
-                        </div>
-                        <div class="progress-bar">
-                            <div class="progress-bar-fill" style="width: 70%"></div>
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <div class="accordion-header flex justify-between items-center cursor-pointer">
+                        <h3 class="text-xl font-bold text-gray-800">Digital Literacy</h3>
+                        <i class="fas fa-chevron-down text-gray-500 accordion-icon"></i>
+                    </div>
+                    <div class="accordion-content mt-4">
+                        <p class="text-gray-600 mb-4">Many artisans in target markets have limited digital literacy, which could impact adoption rates and effective platform usage.</p>
+                        <div class="bg-orange-50 p-4 rounded-lg">
+                            <h4 class="font-semibold mb-2 text-orange-700">Mitigation Strategy</h4>
+                            <ul class="text-gray-600 space-y-2">
+                                <li>• Intuitive Swahili/English UX with minimal text</li>
+                                <li>• USSD fallback for non-smartphone users</li>
+                                <li>• Community trainers in artisan hubs</li>
+                                <li>• Tutorial videos in local languages</li>
+                                <li>• WhatsApp support channel</li>
+                            </ul>
                         </div>
                     </div>
                 </div>
-                
-                <div class="bg-white p-6 rounded-lg shadow-sm">
-                    <h3 class="text-xl mb-4 primary-text">Funding Needs</h3>
-                    <p>
-                        IMARISHA requires KSh 300,000 seed funding from grants (Mastercard Foundation SEF, UNHCR Innovation Fund) to launch the hub and MVP. This will be supplemented by early sales and strategic partnerships to ensure sustainability.
-                    </p>
-                    <div class="mt-4 flex flex-wrap gap-2">
-                        <div class="tag">Mastercard Foundation</div>
-                        <div class="tag">UNHCR Innovation Fund</div>
-                        <div class="tag">Social Enterprise Support</div>
-                    </div>
-                </div>
-            </div>
-        </section>
 
-        <!-- Marketing and Sales Strategy -->
-        <section id="marketing" class="mb-16">
-            <div class="flex items-center mb-8">
-                <div class="section-divider"></div>
-                <h2 class="text-3xl">Marketing and Sales Strategy</h2>
-            </div>
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <div class="accordion-header flex justify-between items-center cursor-pointer">
+                        <h3 class="text-xl font-bold text-gray-800">Competition</h3>
+                        <i class="fas fa-chevron-down text-gray-500 accordion-icon"></i>
+                    </div>
+                    <div class="accordion-content mt-4">
+                        <p class="text-gray-600 mb-4">Global platforms like Upwork or regional e-commerce sites like Jumia could enter the informal sector market with greater resources.</p>
+                        <div class="bg-green-50 p-4 rounded-lg">
+                            <h4 class="font-semibold mb-2 text-green-700">Mitigation Strategy</h4>
+                            <ul class="text-gray-600 space-y-2">
+                                <li>• Niche focus on artisans differentiates from general platforms</li>
+                                <li>• Offline mode adds edge in rural areas</li>
+                                <li>• Local language support and cultural relevance</li>
+                                <li>• Deep understanding of informal sector needs</li>
+                                <li>• Partnership with local associations for credibility</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                <div class="feature-card p-5 border rounded-lg shadow-sm">
-                    <div class="flex items-center mb-3">
-                        <i class="fas fa-store text-primary-color text-2xl mr-3"></i>
-                        <h3 class="text-xl primary-text">Kakuma Market</h3>
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <div class="accordion-header flex justify-between items-center cursor-pointer">
+                        <h3 class="text-xl font-bold text-gray-800">Trade Barriers</h3>
+                        <i class="fas fa-chevron-down text-gray-500 accordion-icon"></i>
                     </div>
-                    
-                    <div class="mb-4">
-                        <h4 class="font-semibold mb-2 accent-text">Strategy</h4>
-                        <ul class="list-disc pl-5 mb-3">
-                            <li>Partnerships with CBOs and NGOs</li>
-                            <li>Radio ads on Kakuma FM (3x daily)</li>
-                            <li>Monthly cultural festivals with demos</li>
-                            <li>Flyers with QR codes to SokoMoja</li>
-                            <li>Artisan brand ambassadors for door-to-door</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="border-t border-border-color pt-3">
-                        <div class="flex justify-between mb-1 text-sm">
-                            <strong>Goal:</strong>
-                            <span>200 products/month (KSh 200,000)</span>
-                        </div>
-                        <div class="progress-bar">
-                            <div class="progress-bar-fill" style="width: 55%"></div>
+                    <div class="accordion-content mt-4">
+                        <p class="text-gray-600 mb-4">Cross-border trade in Africa faces regulatory hurdles, complex customs procedures, and logistical challenges despite AfCFTA progress.</p>
+                        <div class="bg-blue-50 p-4 rounded-lg">
+                            <h4 class="font-semibold mb-2 text-blue-700">Mitigation Strategy</h4>
+                            <ul class="text-gray-600 space-y-2">
+                                <li>• AfCFTA-specific tools (tariff calculators, compliance guides)</li>
+                                <li>• Blockchain for transparent cross-border transactions</li>
+                                <li>• Partnerships with logistics providers</li>
+                                <li>• Advocacy through AfCFTA working groups</li>
+                                <li>• Educational content on trade compliance</li>
+                            </ul>
                         </div>
                     </div>
                 </div>
-                
-                <div class="feature-card p-5 border rounded-lg shadow-sm">
-                    <div class="flex items-center mb-3">
-                        <i class="fas fa-city text-primary-color text-2xl mr-3"></i>
-                        <h3 class="text-xl primary-text">Nairobi Market</h3>
+
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <div class="accordion-header flex justify-between items-center cursor-pointer">
+                        <h3 class="text-xl font-bold text-gray-800">Funding</h3>
+                        <i class="fas fa-chevron-down text-gray-500 accordion-icon"></i>
                     </div>
-                    
-                    <div class="mb-4">
-                        <h4 class="font-semibold mb-2 accent-text">Strategy</h4>
-                        <ul class="list-disc pl-5 mb-3">
-                            <li>Consignment deals with 3 boutiques (60-40 split)</li>
-                            <li>Pop-up stalls at Maasai and Village Markets</li>
-                            <li>Bi-annual fashion showcases at affordable venues</li>
-                            <li>Artisan videos to attract young professionals</li>
-                            <li>WhatsApp marketing to urban buyers</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="border-t border-border-color pt-3">
-                        <div class="flex justify-between mb-1 text-sm">
-                            <strong>Goal:</strong>
-                            <span>500 products/year (KSh 500,000)</span>
-                        </div>
-                        <div class="progress-bar">
-                            <div class="progress-bar-fill" style="width: 30%"></div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="feature-card p-5 border rounded-lg shadow-sm">
-                    <div class="flex items-center mb-3">
-                        <i class="fas fa-globe text-primary-color text-2xl mr-3"></i>
-                        <h3 class="text-xl primary-text">Online Market</h3>
-                    </div>
-                    
-                    <div class="mb-4">
-                        <h4 class="font-semibold mb-2 accent-text">Strategy</h4>
-                        <ul class="list-disc pl-5 mb-3">
-                            <li>SEO for keywords like "Kakuma fashion"</li>
-                            <li>Daily Instagram/TikTok content (artisan stories)</li>
-                            <li>Targeted ads (KSh 5,000/month) for 18-35 age group</li>
-                            <li>Google Ads focusing on ethical fashion buyers</li>
-                            <li>Email marketing to retain customers</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="border-t border-border-color pt-3">
-                        <div class="flex justify-between mb-1 text-sm">
-                            <strong>Goal:</strong>
-                            <span>500 online sales/month by year 2</span>
-                        </div>
-                        <div class="progress-bar">
-                            <div class="progress-bar-fill" style="width: 15%"></div>
+                    <div class="accordion-content mt-4">
+                        <p class="text-gray-600 mb-4">Raising capital for platforms targeting informal sectors can be challenging as investors may perceive higher risks or smaller markets.</p>
+                        <div class="bg-purple-50 p-4 rounded-lg">
+                            <h4 class="font-semibold mb-2 text-purple-700">Mitigation Strategy</h4>
+                            <ul class="text-gray-600 space-y-2">
+                                <li>• Bootstrap MVP to demonstrate traction</li>
+                                <li>• Leverage existing technical skills to minimize costs</li>
+                                <li>• Focus on impact metrics to attract social investors</li>
+                                <li>• Apply for AfCFTA digitization grants</li>
+                                <li>• Partner with trade associations for initial users</li>
+                            </ul>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+    </section>
 
-            <div class="bg-white p-6 rounded-lg shadow-sm">
-                <h3 class="text-xl mb-4 primary-text">Branding Strategy</h3>
-                <p class="mb-4">
-                    IMARISHA's branding centers on "Made in Kakuma" to evoke authenticity and resilience. Each product includes a tag with the artisan's name and story, connecting buyers directly to the creators.
-                </p>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div class="p-4 bg-bg-light rounded-lg shadow-sm border border-border-color">
-                        <div class="font-semibold mb-2 accent-text">Storytelling Focus</div>
-                        <p class="text-sm">
-                            "Fatima, 19, crafted this shuka to support her siblings after fleeing conflict. Each stitch represents her journey toward independence."
-                        </p>
+    <!-- Testimonials Section -->
+    <!-- <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center gradient-text">Stakeholder Testimonials</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="testimonial">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-gray-300 rounded-full flex items-center justify-center mr-4">
+                            <i class="fas fa-user text-gray-600"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-gray-800">Mary Wanjiku</h4>
+                            <p class="text-gray-500 text-sm">Carpenter, Nairobi Jua Kali Association</p>
+                        </div>
                     </div>
-                    <div class="p-4 bg-bg-light rounded-lg shadow-sm border border-border-color">
-                        <div class="font-semibold mb-2 accent-text">Visual Identity</div>
-                        <p class="text-sm">
-                            Vibrant colors reflecting cultural diversity, clean product photography highlighting craftsmanship, and consistent "IMARISHA Certified" badges.
-                        </p>
-                    </div>
-                    <div class="p-4 bg-bg-light rounded-lg shadow-sm border border-border-color">
-                        <div class="font-semibold mb-2 accent-text">Customer Retention</div>
-                        <p class="text-sm">
-                            Loyalty program offering 5% off after 3 purchases, aiming to retain 60% of buyers through regular updates and exclusive offers.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Sustainability Model -->
-        <section id="sustainability" class="mb-16">
-            <div class="flex items-center mb-8">
-                <div class="section-divider"></div>
-                <h2 class="text-3xl">Sustainability Model</h2>
-            </div>
-
-            <p class="mb-6 bg-white p-4 rounded-lg shadow-sm">
-                IMARISHA's sustainability is built on six interconnected pillars designed to ensure long-term viability and impact beyond the initial funding period.
-            </p>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                <div class="feature-card p-5 border rounded-lg shadow-sm">
-                    <div class="flex items-center mb-3">
-                        <i class="fas fa-trademark text-primary-color text-2xl mr-3"></i>
-                        <h3 class="text-lg font-semibold primary-text">Strong Brand Identity</h3>
-                    </div>
-                    <p class="mb-3">
-                        Establish IMARISHA as a recognized name for refugee-crafted fashion by consistently sharing artisan stories through social media, shop displays, and product tags.
-                    </p>
-                    <div class="text-sm accent-text font-semibold">
-                        Target: 5,000 loyal customers by year 3
-                    </div>
+                    <p class="italic text-gray-600">"JKCA would help me find more clients beyond my local area. Currently, I only get jobs from people who pass by my workshop, but with this platform, I could reach customers across Kenya and even in neighboring countries."</p>
                 </div>
                 
-                <div class="feature-card p-5 border rounded-lg shadow-sm">
-                    <div class="flex items-center mb-3">
-                        <i class="fas fa-users-cog text-primary-color text-2xl mr-3"></i>
-                        <h3 class="text-lg font-semibold primary-text">Skilled Workforce</h3>
+                <div class="testimonial">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-gray-300 rounded-full flex items-center justify-center mr-4">
+                            <i class="fas fa-user text-gray-600"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-gray-800">James Ochieng</h4>
+                            <p class="text-gray-500 text-sm">Director, Kenya MSME Authority</p>
+                        </div>
                     </div>
-                    <p class="mb-3">
-                        Retain 70% of artisans through fair wages, training, and community events (e.g., annual artisan appreciation day), ensuring steady production capacity.
-                    </p>
-                    <div class="text-sm accent-text font-semibold">
-                        Target: 500 items/month consistent production
-                    </div>
+                    <p class="italic text-gray-600">"The Jua Kali sector has been the backbone of our economy for decades, yet it remains largely undigitized. JKCA presents an innovative approach to bringing these skilled artisans into the digital economy while preserving their unique business models."</p>
                 </div>
                 
-                <div class="feature-card p-5 border rounded-lg shadow-sm">
-                    <div class="flex items-center mb-3">
-                        <i class="fas fa-user-friends text-primary-color text-2xl mr-3"></i>
-                        <h3 class="text-lg font-semibold primary-text">Customer Network</h3>
+                <div class="testimonial">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-gray-300 rounded-full flex items-center justify-center mr-4">
+                            <i class="fas fa-user text-gray-600"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-gray-800">Dr. Amina Mohammed</h4>
+                            <p class="text-gray-500 text-sm">AfCFTA Secretariat, Digital Trade Advisor</p>
+                        </div>
                     </div>
-                    <p class="mb-3">
-                        Grow a repeat buyer base via email newsletters and a loyalty program, creating stable demand for artisan products across all markets.
-                    </p>
-                    <div class="text-sm accent-text font-semibold">
-                        Target: 1,000 regular customers by year 2
+                    <p class="italic text-gray-600">"For AfCFTA to achieve its potential, we need solutions that bring informal cross-border traders into the formal ecosystem. JKCA's focus on both digital access and offline capabilities addresses a critical need in our continental trade strategy."</p>
+                </div>
+            </div>
+        </div>
+    </section> -->
+
+    <!-- Call to Action -->
+    <section id="contact" class="py-16 hero-gradient text-white">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-8">Support Jua Kali Connect Africa</h2>
+            <p class="text-xl mb-10 md:w-2/3 mx-auto">Join me in empowering Africa's informal workers and MSMEs through digital transformation and cross-border opportunities</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+                <div class="bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg p-6 rounded-lg">
+                    <div class="bg-white text-orange-500 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-handshake text-2xl"></i>
                     </div>
+                    <h3 class="text-xl font-bold mb-3">Investors</h3>
+                    <p class="text-white text-opacity-90 mb-4">Support a platform that combines social impact with sustainable growth in Africa's largest economic sector</p>
+                </div>
+                
+                <div class="bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg p-6 rounded-lg">
+                    <div class="bg-white text-green-500 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-building text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Organizations</h3>
+                    <p class="text-white text-opacity-90 mb-4">Partner with me to bring digital opportunities to artisan associations and informal sector cooperatives</p>
+                </div>
+                
+                <div class="bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg p-6 rounded-lg">
+                    <div class="bg-white text-blue-500 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-laptop-code text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Developers</h3>
+                    <p class="text-white text-opacity-90 mb-4">Join me to build technology that transforms livelihoods across the continent</p>
                 </div>
             </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="feature-card p-5 border rounded-lg shadow-sm">
-                    <div class="flex items-center mb-3">
-                        <i class="fas fa-laptop-code text-primary-color text-2xl mr-3"></i>
-                        <h3 class="text-lg font-semibold primary-text">Technology Integration</h3>
-                    </div>
-                    <p class="mb-3">
-                        Use SokoMoja's offline capabilities and USSD to include rural artisans and buyers, ensuring platform relevance with regular updates.
-                    </p>
-                    <div class="text-sm accent-text font-semibold">
-                        Target: Support 10,000 users by 2030
-                    </div>
-                </div>
-                
-                <div class="feature-card p-5 border rounded-lg shadow-sm">
-                    <div class="flex items-center mb-3">
-                        <i class="fas fa-expand-arrows-alt text-primary-color text-2xl mr-3"></i>
-                        <h3 class="text-lg font-semibold primary-text">Regional Growth</h3>
-                    </div>
-                    <p class="mb-3">
-                        Expand sales to Nairobi by year 2, then test exports to Uganda and Ethiopia, building a modest but growing export pipeline.
-                    </p>
-                    <div class="text-sm accent-text font-semibold">
-                        Target: 1,000 export items/year by 2030
-                    </div>
-                </div>
-                
-                <div class="feature-card p-5 border rounded-lg shadow-sm">
-                    <div class="flex items-center mb-3">
-                        <i class="fas fa-handshake text-primary-color text-2xl mr-3"></i>
-                        <h3 class="text-lg font-semibold primary-text">Strategic Partnerships</h3>
-                    </div>
-                    <p class="mb-3">
-                        Secure contracts with organizations like UNHCR and Mastercard Foundation for training subsidies, enhancing credibility and reducing costs.
-                    </p>
-                    <div class="text-sm accent-text font-semibold">
-                        Target: 2 contracts by year 2 (KSh 100,000)
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Implementation Timeline -->
-        <section id="timeline" class="mb-16">
-            <div class="flex items-center mb-8">
-                <div class="section-divider"></div>
-                <h2 class="text-3xl">Implementation Timeline</h2>
-            </div>
-
-            <div class="timeline-container px-4 my-8">
-                <!-- Phase 1 -->
-                <div class="timeline-item grid grid-cols-1 md:grid-cols-12 gap-4 mb-16">
-                    <div class="md:col-span-5 text-right hidden md:block">
-                        <h3 class="text-xl primary-text mb-2">Months 1-3: Validation and Setup</h3>
-                        <p class="mb-2">
-                            The foundation phase focuses on market validation, securing initial funding, and building core infrastructure.
-                        </p>
-                        <div class="flex flex-wrap justify-end gap-1 mt-2">
-                            <div class="tag">MVP Development</div>
-                            <div class="tag">Funding Secured</div>
-                            <div class="tag">Initial Recruitment</div>
-                        </div>
-                    </div>
-                    
-                    <div class="md:col-span-2 flex justify-center">
-                        <!-- Timeline element for larger screens -->
-                        <div class="hidden md:block w-full"></div>
-                        
-                        <!-- Timeline element for mobile -->
-                        <div class="md:hidden flex flex-col items-center">
-                            <div class="w-4 h-4 rounded-full bg-primary-color mb-1"></div>
-                            <div class="w-1 h-10 bg-accent-color"></div>
-                        </div>
-                    </div>
-                    
-                    <div class="md:col-span-5 md:hidden">
-                        <h3 class="text-xl primary-text mb-2">Months 1-3: Validation and Setup</h3>
-                    </div>
-                    
-                    <div class="md:col-span-5">
-                        <div class="bg-white p-5 rounded-lg shadow-sm border border-border-color">
-                            <ul class="list-disc pl-5">
-                                <li>Conduct surveys with 30 Kakuma artisans to validate product demand and price points</li>
-                                <li>Secure KSh 150,000 grant from UNHCR Innovation Fund or Mastercard Foundation SEF</li>
-                                <li>Build SokoMoja MVP with product listings, M-Pesa payments, and basic dashboards</li>
-                                <li>Rent hub space and purchase initial equipment (3 sewing machines, materials)</li>
-                                <li>Recruit first 10 artisans, focusing on skilled teenage mothers</li>
-                            </ul>
-                            <div class="mt-3 text-sm accent-text font-semibold">
-                                Outcome: MVP live, hub framework ready, 10 artisans recruited
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Phase 2 -->
-                <div class="timeline-item grid grid-cols-1 md:grid-cols-12 gap-4 mb-16">
-                    <div class="md:col-span-5">
-                        <div class="bg-white p-5 rounded-lg shadow-sm border border-border-color">
-                            <ul class="list-disc pl-5">
-                                <li>Launch micro-hub with 5 artisans producing 100 shukas/month</li>
-                                <li>Open Kakuma shop with 50 initial products, using KSh 10,000 for setup</li>
-                                <li>Test SokoMoja with 500 online visitors via targeted Instagram ads</li>
-                                <li>Hire a part-time manager to oversee hub and shop operations</li>
-                                <li>Begin basic quality control processes for consistent product standards</li>
-                            </ul>
-                            <div class="mt-3 text-sm accent-text font-semibold">
-                                Outcome: 10 artisans employed, shop operational, SokoMoja active
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="md:col-span-2 flex justify-center">
-                        <!-- Timeline element for larger screens -->
-                        <div class="hidden md:block w-full"></div>
-                        
-                        <!-- Timeline element for mobile -->
-                        <div class="md:hidden flex flex-col items-center">
-                            <div class="w-4 h-4 rounded-full bg-primary-color mb-1"></div>
-                            <div class="w-1 h-10 bg-accent-color"></div>
-                        </div>
-                    </div>
-                    
-                    <div class="md:col-span-5 md:hidden">
-                        <h3 class="text-xl primary-text mb-2">Months 4-6: Pilot Launch</h3>
-                    </div>
-                    
-                    <div class="md:col-span-5 text-right hidden md:block">
-                        <h3 class="text-xl primary-text mb-2">Months 4-6: Pilot Launch</h3>
-                        <p class="mb-2">
-                            Testing the model with a small group of artisans and establishing our first sales channels.
-                        </p>
-                        <div class="flex flex-wrap justify-end gap-1 mt-2">
-                            <div class="tag">First Production</div>
-                            <div class="tag">Kakuma Shop Opening</div>
-                            <div class="tag">Initial Sales</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Phase 3 -->
-                <div class="timeline-item grid grid-cols-1 md:grid-cols-12 gap-4 mb-16">
-                    <div class="md:col-span-5 text-right hidden md:block">
-                        <h3 class="text-xl primary-text mb-2">Months 7-12: Growth and Optimization</h3>
-                        <p class="mb-2">
-                            Scaling production capacity, launching training programs, and expanding to Nairobi market.
-                        </p>
-                        <div class="flex flex-wrap justify-end gap-1 mt-2">
-                            <div class="tag">Expanded Production</div>
-                            <div class="tag">Training Launch</div>
-                            <div class="tag">Nairobi Entry</div>
-                        </div>
-                    </div>
-                    
-                    <div class="md:col-span-2 flex justify-center">
-                        <!-- Timeline element for larger screens -->
-                        <div class="hidden md:block w-full"></div>
-                        
-                        <!-- Timeline element for mobile -->
-                        <div class="md:hidden flex flex-col items-center">
-                            <div class="w-4 h-4 rounded-full bg-primary-color mb-1"></div>
-                            <div class="w-1 h-10 bg-accent-color"></div>
-                        </div>
-                    </div>
-                    
-                    <div class="md:col-span-5 md:hidden">
-                        <h3 class="text-xl primary-text mb-2">Months 7-12: Growth and Optimization</h3>
-                    </div>
-                    
-                    <div class="md:col-span-5">
-                        <div class="bg-white p-5 rounded-lg shadow-sm border border-border-color">
-                            <ul class="list-disc pl-5">
-                                <li>Expand hub to 30 artisans with additional machines, producing 500 items/month</li>
-                                <li>Launch training academy with 20 learners/month, including free training for teenage mothers</li>
-                                <li>Partner with 3 Nairobi boutiques, supplying 100 items/month on consignment</li>
-                                <li>Add USSD access and AI recommendations to SokoMoja, increasing user base</li>
-                                <li>Pitch for KSh 1 million seed funding to Savannah Fund, showcasing initial traction</li>
-                            </ul>
-                            <div class="mt-3 text-sm accent-text font-semibold">
-                                Outcome: 500 products sold, 50 artisans trained, Nairobi foothold
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Phase 4 -->
-                <div class="timeline-item grid grid-cols-1 md:grid-cols-12 gap-4">
-                    <div class="md:col-span-5">
-                        <div class="bg-white p-5 rounded-lg shadow-sm border border-border-color">
-                            <ul class="list-disc pl-5">
-                                <li>Train 100 artisans total, with 30% launching side hustles</li>
-                                <li>Export 200 shukas to Uganda via SokoMoja (KSh 200,000 revenue)</li>
-                                <li>Grow SokoMoja to 2,000 users, achieving KSh 2 million annual revenue</li>
-                                <li>Host Nairobi showcase to raise brand awareness among urban buyers</li>
-                                <li>Secure KSh 5 million Series A for a second hub in Kalobeyei</li>
-                            </ul>
-                            <div class="mt-3 text-sm accent-text font-semibold">
-                                Outcome: 100 artisans empowered, regional sales begun, sustainable revenue
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="md:col-span-2 flex justify-center">
-                        <!-- Timeline element for larger screens -->
-                        <div class="hidden md:block w-full"></div>
-                        
-                        <!-- Timeline element for mobile -->
-                        <div class="md:hidden flex flex-col items-center">
-                            <div class="w-4 h-4 rounded-full bg-primary-color mb-1"></div>
-                        </div>
-                    </div>
-                    
-                    <div class="md:col-span-5 md:hidden">
-                        <h3 class="text-xl primary-text mb-2">Years 2-3: Scale and Regional Push</h3>
-                    </div>
-                    
-                    <div class="md:col-span-5 text-right hidden md:block">
-                        <h3 class="text-xl primary-text mb-2">Years 2-3: Scale and Regional Push</h3>
-                        <p class="mb-2">
-                            Achieving sustainability through diversified markets, expanded production, and secured investment.
-                        </p>
-                        <div class="flex flex-wrap justify-end gap-1 mt-2">
-                            <div class="tag">Regional Exports</div>
-                            <div class="tag">Funding Round</div>
-                            <div class="tag">Second Hub</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Expected Impact -->
-        <section id="impact" class="mb-16">
-            <div class="flex items-center mb-8">
-                <div class="section-divider"></div>
-                <h2 class="text-3xl">Expected Impact</h2>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-                <div>
-                    <h3 class="text-xl mb-4 flex items-center">
-                        <i class="fas fa-coins text-primary-color text-xl mr-3"></i>
-                        <span class="primary-text">Economic Impact</span>
-                    </h3>
-                    
-                    <div class="grid grid-cols-1 gap-4">
-                        <div class="stat-card p-4 pl-5 bg-white rounded-lg shadow-sm">
-                            <h4 class="font-semibold mb-2 accent-text">Year 1:</h4>
-                            <p>
-                                Employ 30 artisans, generating KSh 200,000/month in wages (KSh 6,000-8,000/artisan), enabling them to afford food and school fees.
-                            </p>
-                            <div class="mt-2 text-sm">
-                                <div class="flex justify-between mb-1">
-                                    <span>Progress:</span>
-                                    <span>10 artisans (33%)</span>
-                                </div>
-                                <div class="progress-bar">
-                                    <div class="progress-bar-fill" style="width: 33%"></div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="stat-card p-4 pl-5 bg-white rounded-lg shadow-sm">
-                            <h4 class="font-semibold mb-2 accent-text">Year 3:</h4>
-                            <p>
-                                Support 100 artisans, increasing average incomes by 30% to KSh 10,000/month, stabilizing household finances.
-                            </p>
-                            <div class="mt-2 text-sm">
-                                <div class="flex justify-between mb-1">
-                                    <span>Progress:</span>
-                                    <span>Planning phase</span>
-                                </div>
-                                <div class="progress-bar">
-                                    <div class="progress-bar-fill" style="width: 5%"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div>
-                    <h3 class="text-xl mb-4 flex items-center">
-                        <i class="fas fa-heart text-primary-color text-xl mr-3"></i>
-                        <span class="primary-text">Social Impact</span>
-                    </h3>
-                    
-                    <div class="grid grid-cols-1 gap-4">
-                        <div class="stat-card p-4 pl-5 bg-white rounded-lg shadow-sm">
-                            <h4 class="font-semibold mb-2 accent-text">Empowering Women:</h4>
-                            <p>
-                                Train and empower 50 teenage mothers with sewing and business skills by year 1, reducing risks of poverty and early marriage by providing viable livelihoods.
-                            </p>
-                            <div class="mt-2 text-sm">
-                                <div class="flex justify-between mb-1">
-                                    <span>Progress:</span>
-                                    <span>5 teenage mothers (10%)</span>
-                                </div>
-                                <div class="progress-bar">
-                                    <div class="progress-bar-fill" style="width: 10%"></div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="stat-card p-4 pl-5 bg-white rounded-lg shadow-sm">
-                            <h4 class="font-semibold mb-2 accent-text">Community Integration:</h4>
-                            <p>
-                                Promote integration by inviting 20 host community members to training sessions, fostering mutual understanding and collaboration.
-                            </p>
-                            <div class="mt-2 text-sm">
-                                <div class="flex justify-between mb-1">
-                                    <span>Progress:</span>
-                                    <span>Planning phase</span>
-                                </div>
-                                <div class="progress-bar">
-                                    <div class="progress-bar-fill" style="width: 5%"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div>
-                    <h3 class="text-xl mb-4 flex items-center">
-                        <i class="fas fa-chart-line text-primary-color text-xl mr-3"></i>
-                        <span class="primary-text">Market Impact</span>
-                    </h3>
-                    
-                    <div class="grid grid-cols-1 gap-4">
-                        <div class="stat-card p-4 pl-5 bg-white rounded-lg shadow-sm">
-                            <h4 class="font-semibold mb-2 accent-text">Supply Chain Development:</h4>
-                            <p>
-                                Establish a reliable supply chain, selling 2,000 products/year by 2027, with 70% through SokoMoja and Nairobi partners.
-                            </p>
-                        </div>
-                        
-                        <div class="stat-card p-4 pl-5 bg-white rounded-lg shadow-sm">
-                            <h4 class="font-semibold mb-2 accent-text">Local Economy:</h4>
-                            <p>
-                                Contribute KSh 5 million annually to Kakuma's economy by year 3 through local sales and wages, supporting small vendors like fabric suppliers.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div>
-                    <h3 class="text-xl mb-4 flex items-center">
-                        <i class="fas fa-globe text-primary-color text-xl mr-3"></i>
-                        <span class="primary-text">Systemic Impact</span>
-                    </h3>
-                    
-                    <div class="grid grid-cols-1 gap-4">
-                        <div class="stat-card p-4 pl-5 bg-white rounded-lg shadow-sm">
-                            <h4 class="font-semibold mb-2 accent-text">Replication:</h4>
-                            <p>
-                                Inspire 3 refugee-led fashion ventures by 2030, sharing IMARISHA's model via workshops at UNHCR events.
-                            </p>
-                        </div>
-                        
-                        <div class="stat-card p-4 pl-5 bg-white rounded-lg shadow-sm">
-                            <h4 class="font-semibold mb-2 accent-text">SDG Alignment:</h4>
-                            <p>
-                                Advance SDG 8 (Decent Work), SDG 5 (Gender Equality), and SDG 10 (Reduced Inequalities) through sustainable refugee livelihood creation.
-                            </p>
-                            <div class="mt-3 flex flex-wrap gap-2">
-                                <div class="tag">SDG 5</div>
-                                <div class="tag">SDG 8</div>
-                                <div class="tag">SDG 10</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Challenges and Mitigations -->
-        <section id="challenges" class="mb-16">
-            <div class="flex items-center mb-8">
-                <div class="section-divider"></div>
-                <h2 class="text-3xl">Challenges and Mitigations</h2>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="p-6 border border-border-color rounded-lg shadow-sm bg-white">
-                    <h3 class="text-xl mb-4 primary-text">Market Access Barriers</h3>
-                    
-                    <div class="mb-4">
-                        <h4 class="font-semibold mb-2 accent-text">Challenge:</h4>
-                        <p>
-                            Kakuma's isolation limits buyer reach, with only 10% of residents accessing external markets.
-                        </p>
-                    </div>
-                    
-                    <div>
-                        <h4 class="font-semibold mb-2 accent-text">Mitigation:</h4>
-                        <ul class="list-disc pl-5">
-                            <li>Use NGO networks (e.g., IRC's 5,000 monthly visitors) to promote shop</li>
-                            <li>Drive online traffic with KSh 10,000/month social ads, targeting Nairobi's 2 million Instagram users</li>
-                            <li>Develop USSD platform for non-smartphone users to browse and order products</li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <div class="p-6 border border-border-color rounded-lg shadow-sm bg-white">
-                    <h3 class="text-xl mb-4 primary-text">Artisan Skill Gaps</h3>
-                    
-                    <div class="mb-4">
-                        <h4 class="font-semibold mb-2 accent-text">Challenge:</h4>
-                        <p>
-                            Inconsistent stitching or design skills lead to 20% product rejections initially.
-                        </p>
-                    </div>
-                    
-                    <div>
-                        <h4 class="font-semibold mb-2 accent-text">Mitigation:</h4>
-                        <ul class="list-disc pl-5">
-                            <li>Implement 2-week onboarding with daily quality feedback, reducing rejections to 5%</li>
-                            <li>Pair new artisans with mentors for 1 month of guided training</li>
-                            <li>Create standardized patterns and templates to ensure consistency</li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <div class="p-6 border border-border-color rounded-lg shadow-sm bg-white">
-                    <h3 class="text-xl mb-4 primary-text">Funding Constraints</h3>
-                    
-                    <div class="mb-4">
-                        <h4 class="font-semibold mb-2 accent-text">Challenge:</h4>
-                        <p>
-                            KSh 300,000 covers only basic setup, risking delays if grants fail.
-                        </p>
-                    </div>
-                    
-                    <div>
-                        <h4 class="font-semibold mb-2 accent-text">Mitigation:</h4>
-                        <ul class="list-disc pl-5">
-                            <li>Bootstrap SokoMoja using existing Django skills (KSh 0 dev cost)</li>
-                            <li>Sell 100 shukas in month 1 (KSh 50,000) to fund materials</li>
-                            <li>Apply to 3 grants by month 2 to diversify funding sources</li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <div class="p-6 border border-border-color rounded-lg shadow-sm bg-white">
-                    <h3 class="text-xl mb-4 primary-text">Competition</h3>
-                    
-                    <div class="mb-4">
-                        <h4 class="font-semibold mb-2 accent-text">Challenge:</h4>
-                        <p>
-                            Local tailors and global brands offer similar products at KSh 1,500-10,000, undercutting IMARISHA's KSh 2,000-5,000 range.
-                        </p>
-                    </div>
-                    
-                    <div>
-                        <h4 class="font-semibold mb-2 accent-text">Mitigation:</h4>
-                        <ul class="list-disc pl-5">
-                            <li>Differentiate with "Made in Kakuma" storytelling, targeting ethical buyers willing to pay a 10% premium</li>
-                            <li>Offer bundles (e.g., shuka + bag for KSh 3,000) to compete locally</li>
-                            <li>Focus on unique designs that blend traditional and modern elements</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Call to Action -->
-        <section class="mb-16 pattern-bg p-8 rounded-lg text-center text-white shadow-lg">
-            <h2 class="text-2xl mb-4 text-white">Join Us in Empowering Refugee Artisans</h2>
-            <p class="max-w-2xl mx-auto mb-6">
-                IMARISHA Enterprise offers a sustainable, scalable solution to economic challenges faced by refugee artisans in Kakuma and Kalobeyei. With your support, we can transform traditional skills into financial independence for 2,000 artisans by 2030.
-            </p>
-            
-            <div class="flex flex-col md:flex-row justify-center gap-4 mt-6">
-                <div class="p-4 bg-white rounded-lg text-left flex items-center shadow-md">
-                    <div class="bg-primary-color p-3 rounded-full text-white mr-4 shadow-md">
-                        <i class="fas fa-handshake text-xl"></i>
-                    </div>
-                    <div>
-                        <h3 class="font-semibold accent-text">Partner with Us</h3>
-                        <p class="text-sm">Collaborate on training, funding, or market access</p>
-                    </div>
-                </div>
-                
-                <div class="p-4 bg-white rounded-lg text-left flex items-center shadow-md">
-                    <div class="bg-primary-color p-3 rounded-full text-white mr-4 shadow-md">
-                        <i class="fas fa-hand-holding-usd text-xl"></i>
-                    </div>
-                    <div>
-                        <h3 class="font-semibold accent-text">Fund Our Vision</h3>
-                        <p class="text-sm">Invest in sustainable refugee livelihoods</p>
-                    </div>
-                </div>
-                
-                <div class="p-4 bg-white rounded-lg text-left flex items-center shadow-md">
-                    <div class="bg-primary-color p-3 rounded-full text-white mr-4 shadow-md">
-                        <i class="fas fa-shopping-bag text-xl"></i>
-                    </div>
-                    <div>
-                        <h3 class="font-semibold accent-text">Buy Our Products</h3>
-                        <p class="text-sm">Support artisans through ethical purchases</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
+            <!-- <a href="#" class="inline-block bg-white text-orange-500 py-3 px-8 rounded-full font-bold text-lg shadow-lg hover:bg-gray-100 transition transform hover:-translate-y-1">
+                Contact Us
+            </a> -->
+        </div>
+    </section>
 
     <!-- Footer -->
-    <footer class="pattern-bg text-white py-8">
+    <footer class="bg-gray-800 text-gray-300 py-12">
         <div class="container mx-auto px-4">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="grid grid-cols-2 md:grid-cols-2 gap-8">
                 <div>
-                    <h3 class="text-xl mb-4 logo-text">IMARISHA ENTERPRISE</h3>
-                    <p class="mb-4">
-                        A refugee-led social enterprise transforming artisan skills into sustainable livelihoods in Kakuma and Kalobeyei Refugee Camps.
-                    </p>
-                </div>
-                
-                <div>
-                    <h3 class="text-xl mb-4">Contact</h3>
-                    <div class="flex items-center mb-2">
-                        <i class="fas fa-map-marker-alt w-6"></i>
-                        <span>Kakuma Refugee Camp, Turkana County, Kenya</span>
-                    </div>
-                    <div class="flex items-center mb-2">
-                        <i class="fas fa-phone w-6"></i>
-                        <span>+254 700 000000</span>
-                    </div>
-                    <div class="flex items-center mb-2">
-                        <i class="fas fa-envelope w-6"></i>
-                        <span>info@imarishaenterprise.co.ke</span>
-                    </div>
-                </div>
-                
-                <div>
-                    <h3 class="text-xl mb-4">Follow Us</h3>
+                    <h3 class="text-xl font-bold mb-4 text-white">Jua Kali Connect Africa</h3>
+                    <p class="mb-4">Empowering Africa's informal workers through digital innovation and cross-border opportunities.</p>
                     <div class="flex space-x-4">
-                        <a href="#" class="text-white hover:text-secondary-color transition-colors">
-                            <i class="fab fa-instagram text-2xl"></i>
-                        </a>
-                        <a href="#" class="text-white hover:text-secondary-color transition-colors">
-                            <i class="fab fa-facebook text-2xl"></i>
-                        </a>
-                        <a href="#" class="text-white hover:text-secondary-color transition-colors">
-                            <i class="fab fa-twitter text-2xl"></i>
-                        </a>
-                        <a href="#" class="text-white hover:text-secondary-color transition-colors">
-                            <i class="fab fa-linkedin text-2xl"></i>
-                        </a>
+                        <a href="#" class="text-gray-300 hover:text-white"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-300 hover:text-white"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="text-gray-300 hover:text-white"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="text-gray-300 hover:text-white"><i class="fab fa-instagram"></i></a>
                     </div>
-                    <p class="mt-4">
-                        Visit our SokoMoja platform: <a href="#" class="underline hover:text-secondary-color transition-colors">www.sokomoja.co.ke</a>
-                    </p>
+                </div>
+                
+                <!-- <div>
+                    <h4 class="text-lg font-semibold mb-4 text-white">Platform</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#features" class="text-gray-300 hover:text-white">Features</a></li>
+                        <li><a href="#tech" class="text-gray-300 hover:text-white">Technology</a></li>
+                        <li><a href="#roadmap" class="text-gray-300 hover:text-white">Roadmap</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white">Demo Access</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4 text-white">Resources</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-300 hover:text-white">AfCFTA Guide</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white">Cross-Border Trade</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white">Jua Kali Sector</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white">Digital Inclusion</a></li>
+                    </ul>
+                </div> -->
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4 text-white">Contact</h4>
+                    <ul class="space-y-2">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt mt-1 mr-2"></i>
+                            <span>Nairobi, Kenya</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-envelope mt-1 mr-2"></i>
+                            <span>iiranzi@usiu.ac.ke</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-phone mt-1 mr-2"></i>
+                            <span>+254 113168688</span>
+                        </li>
+                    </ul>
                 </div>
             </div>
             
-            <div class="border-t border-gray-600 mt-8 pt-6 text-center">
-                <p>&copy; 2023 IMARISHA Enterprise. All rights reserved.</p>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center">
+                <p>&copy; 2025 Jua Kali Connect Africa. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
     <script>
-        // Simple script to make timeline more interactive
-        document.addEventListener('DOMContentLoaded', function() {
-            // Highlight nav items when scrolling
-            const sections = document.querySelectorAll('section[id]');
-            const navItems = document.querySelectorAll('.nav-item');
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // Tab functionality
+        function openTab(evt, tabName) {
+            // Hide all tab content
+            const tabContent = document.getElementsByClassName("tab-content");
+            for (let i = 0; i < tabContent.length; i++) {
+                tabContent[i].classList.add("hidden");
+            }
             
-            window.addEventListener('scroll', function() {
-                let current = '';
+            // Remove active class from all tab buttons
+            const tabButtons = document.getElementsByClassName("tab-button");
+            for (let i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].classList.remove("text-orange-500");
+                tabButtons[i].classList.add("text-gray-500");
+                tabButtons[i].classList.remove("border-orange-500");
+                tabButtons[i].classList.add("border-transparent");
+            }
+            
+            // Show the selected tab content
+            document.getElementById(tabName).classList.remove("hidden");
+            
+            // Add active class to the clicked tab button
+            evt.currentTarget.classList.remove("text-gray-500");
+            evt.currentTarget.classList.add("text-orange-500");
+            evt.currentTarget.classList.remove("border-transparent");
+            evt.currentTarget.classList.add("border-orange-500");
+        }
+        
+        // Accordion functionality
+        const accordionHeaders = document.querySelectorAll('.accordion-header');
+        accordionHeaders.forEach(header => {
+            header.addEventListener('click', () => {
+                const content = header.nextElementSibling;
+                const icon = header.querySelector('.accordion-icon');
                 
-                sections.forEach(section => {
-                    const sectionTop = section.offsetTop;
-                    const sectionHeight = section.clientHeight;
-                    
-                    if (scrollY >= (sectionTop - 200)) {
-                        current = section.getAttribute('id');
-                    }
-                });
+                content.classList.toggle('accordion-active');
+                icon.classList.toggle('rotate-icon');
+            });
+        });
+        
+        // Counter animation
+        const counters = document.querySelectorAll('.counter');
+        const speed = 200;
+        
+        counters.forEach(counter => {
+            const animate = () => {
+                const value = +counter.getAttribute('data-target');
+                const data = +counter.innerText;
                 
-                navItems.forEach(item => {
-                    item.classList.remove('primary-text');
-                    item.classList.remove('font-semibold');
-                    if (item.getAttribute('href').substring(1) === current) {
-                        item.classList.add('primary-text');
-                        item.classList.add('font-semibold');
+                const time = value / speed;
+                if (data < value) {
+                    counter.innerText = Math.ceil(data + time);
+                    setTimeout(animate, 50);
+                } else {
+                    counter.innerText = value;
+                }
+            };
+            
+            animate();
+        });
+        
+        // Progress bar
+        window.onscroll = function() {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById("progressBar").style.width = scrolled + "%";
+        };
+        
+        // Initialize charts
+        window.addEventListener('DOMContentLoaded', (event) => {
+            // User Growth Chart
+            const userGrowthCtx = document.getElementById('userGrowthChart').getContext('2d');
+            const userGrowthChart = new Chart(userGrowthCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Launch', 'Year 1', 'Year 2', 'Year 3', 'Year 4', 'Year 5'],
+                    datasets: [{
+                        label: 'Users',
+                        data: [0, 10000, 50000, 200000, 500000, 1000000],
+                        backgroundColor: 'rgba(230, 126, 34, 0.2)',
+                        borderColor: 'rgba(230, 126, 34, 1)',
+                        borderWidth: 2,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function(value) {
+                                    if (value >= 1000000) return (value / 1000000) + 'M';
+                                    if (value >= 1000) return (value / 1000) + 'K';
+                                    return value;
+                                }
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
                     }
-                });
+                }
             });
         });
     </script>
